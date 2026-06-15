@@ -175,11 +175,6 @@ a {
     transform: none;
     transition: none;
   }
-  .node-ring,
-  .edge {
-    animation: none;
-    stroke-dashoffset: 0;
-  }
 }
 
 /* ── Modal dim backdrop ── */

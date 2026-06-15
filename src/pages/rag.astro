@@ -122,9 +122,15 @@ const t = lang === "zh" ? zh : en;
     d.className = "msg bot";
     d.innerHTML = `<div class="bubble">${answer.replace(/\n/g, "<br>")}</div>`;
     if (cited && cited.length > 0) {
-      const citeStr = cited.join("、");
-      const citeLabel = document.documentElement.lang === "en" ? "Cited" : "引用";
-      d.innerHTML += `<span class="cite">▸ ${citeLabel}：${citeStr}</span>`;
+      const refs = document.createElement("div");
+      refs.className = "refs";
+      cited.forEach((c) => {
+        const ref = document.createElement("span");
+        ref.className = "ref";
+        ref.textContent = c;
+        refs.appendChild(ref);
+      });
+      d.appendChild(refs);
     }
     thread.appendChild(d);
     thread.scrollTop = thread.scrollHeight;
@@ -337,6 +343,17 @@ const t = lang === "zh" ? zh : en;
     display: flex;
     flex-direction: column;
     max-width: 86%;
+    animation: fadeUp 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  @keyframes fadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
   }
   .msg.me {
     align-self: flex-end;
@@ -360,13 +377,26 @@ const t = lang === "zh" ? zh : en;
     border: 1px solid var(--line);
     border-bottom-left-radius: 6px;
   }
-  .cite {
+  .refs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .ref {
     font-size: 12px;
     color: var(--teal-deep);
-    margin-top: 8px;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
+    background: var(--teal-soft);
+    border: 1px solid transparent;
+    border-radius: 980px;
+    padding: 5px 13px;
+    cursor: default;
+    transition: 0.2s;
+  }
+  .ref:hover {
+    border-color: var(--teal);
+    background: #fff;
+    transform: translateY(-1px);
   }
   .composer {
     padding: 14px 18px 20px;
