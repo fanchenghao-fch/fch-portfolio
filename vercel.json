@@ -1,7 +1,0 @@
-{
-  "functions": {
-    "src/pages/api/rag.ts": {
-      "maxDuration": 60
-    }
-  }
-}
