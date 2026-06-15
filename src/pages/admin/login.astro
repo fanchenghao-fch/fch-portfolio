@@ -1,0 +1,163 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+if (Astro.request.method === "POST") {
+  // Will be handled by client-side Supabase Auth
+  return new Response(null, { status: 200 });
+}
+---
+
+<BaseLayout title="后台登录 · 范诚昊" noIndex>
+  <style>
+    .login-wrap {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: var(--paper);
+    }
+    .login-card {
+      width: 100%;
+      max-width: 400px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 44px 40px 38px;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.07);
+    }
+    .login-card h1 {
+      font-size: 27px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.18;
+    }
+    .login-card .sub {
+      font-size: 15px;
+      color: var(--muted);
+      margin-top: 12px;
+      line-height: 1.55;
+    }
+    .field {
+      margin-top: 24px;
+    }
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 8px;
+    }
+    .field input {
+      width: 100%;
+      height: 50px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      padding: 0 16px;
+      font-size: 16px;
+      font-family: inherit;
+      color: var(--ink);
+      background: #fff;
+      transition: 0.2s;
+    }
+    .field input:focus {
+      outline: none;
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(14, 140, 130, 0.14);
+    }
+    .btn-submit {
+      width: 100%;
+      height: 52px;
+      margin-top: 30px;
+      border: none;
+      border-radius: 980px;
+      background: var(--teal);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 500;
+      font-family: inherit;
+      cursor: pointer;
+      transition: 0.25s;
+    }
+    .btn-submit:hover:not(:disabled) {
+      background: var(--teal-deep);
+    }
+    .btn-submit:disabled {
+      background: #c9d6d4;
+      cursor: not-allowed;
+    }
+    .err {
+      color: #d32f2f;
+      font-size: 14px;
+      margin-top: 12px;
+      text-align: center;
+    }
+    @media (max-width: 480px) {
+      .login-card {
+        padding: 36px 26px 30px;
+        border-radius: 20px;
+      }
+      .login-card h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+
+  <div class="login-wrap">
+    <div class="login-card">
+      <h1>后台登录</h1>
+      <p class="sub">仅范诚昊本人可访问</p>
+
+      <form id="login-form">
+        <div class="field">
+          <label for="email">邮箱</label>
+          <input id="email" type="email" placeholder="admin@example.com" required />
+        </div>
+        <div class="field">
+          <label for="password">密码</label>
+          <input id="password" type="password" placeholder="••••••••" required />
+        </div>
+
+        <button class="btn-submit" id="btn-submit" type="submit">登录</button>
+        <div class="err" id="error" style="display:none;"></div>
+      </form>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  import { createClient } from "@supabase/supabase-js";
+
+  const SUPABASE_URL = import.meta.env.PUBLIC_SUPABASE_URL;
+  const SUPABASE_ANON_KEY = import.meta.env.PUBLIC_SUPABASE_ANON_KEY;
+
+  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  const form = document.getElementById("login-form")!;
+  const btn = document.getElementById("btn-submit") as HTMLButtonElement;
+  const errorEl = document.getElementById("error")!;
+
+  supabase.auth.onAuthStateChange((event, session) => {
+    if (event === "SIGNED_IN" && session) {
+      window.location.href = "/admin/dashboard";
+    }
+  });
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const email = (document.getElementById("email") as HTMLInputElement).value;
+    const password = (document.getElementById("password") as HTMLInputElement).value;
+
+    btn.disabled = true;
+    btn.textContent = "登录中...";
+    errorEl.style.display = "none";
+
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) {
+      errorEl.textContent = error.message;
+      errorEl.style.display = "block";
+      btn.disabled = false;
+      btn.textContent = "登录";
+    }
+  });
+</script>

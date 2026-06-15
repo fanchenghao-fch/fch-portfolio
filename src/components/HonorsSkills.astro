@@ -1,0 +1,76 @@
+---
+import type { Lang } from "../lib/i18n";
+import { profileContent } from "../data/profile";
+
+const lang = (Astro.locals?.lang ?? "zh") as Lang;
+const { honors, skills } = profileContent[lang];
+---
+
+<!-- Honors -->
+<section class="section" style="padding-top:0;">
+  <div class="reveal">
+    <div class="eyebrow">{lang === "zh" ? "竞赛与荣誉" : "Competitions & Honors"}</div>
+    <h2 class="h2">{lang === "zh" ? "赛场内外都在赢。" : "Winning on and off the field."}</h2>
+  </div>
+  <div class="honor-row">
+    {honors.map((h) => (
+      <div class="honor reveal">
+        <div class="y">{h.year}</div>
+        <strong>{h.title}</strong>
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- Skills -->
+<section class="section" style="padding-top:0;">
+  <div class="reveal">
+    <div class="eyebrow">{lang === "zh" ? "技能" : "Skills"}</div>
+    <h2 class="h2">{lang === "zh" ? "工具，是想法的延伸。" : "Tools extend ideas."}</h2>
+  </div>
+  {skills.map((sg) => (
+    <div class="skill-block reveal">
+      <div class="k">{sg.category}</div>
+      <div class="chips">
+        {sg.items.map((item) => <span class="chip">{item}</span>)}
+      </div>
+    </div>
+  ))}
+</section>
+
+<style>
+  .honor-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 46px;
+  }
+  .honor {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--r);
+    padding: 18px 22px;
+    flex: 1;
+    min-width: 220px;
+  }
+  .honor .y {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .honor strong {
+    display: block;
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 6px;
+    letter-spacing: -0.01em;
+  }
+  .skill-block {
+    margin-top: 38px;
+  }
+  .skill-block .k {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 14px;
+  }
+</style>

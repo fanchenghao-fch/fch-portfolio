@@ -1,0 +1,67 @@
+---
+const { href = "/home" } = Astro.props;
+---
+
+<nav class="nav">
+  <div class="nav-in">
+    <a href={href} class="brand">范诚昊</a>
+    <div class="nav-links">
+      <a href="#capability">能力</a>
+      <a href="#experience">经历</a>
+      <a href="#projects">作品</a>
+      <a href="#contact">联系</a>
+      <a href="/en/home" class="lang">中 / EN</a>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    background: rgba(251, 251, 253, 0.72);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-in {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 22px;
+  }
+  .brand {
+    font-weight: 600;
+    font-size: 17px;
+    letter-spacing: -0.02em;
+  }
+  .nav-links {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+  }
+  .nav-links a {
+    font-size: 14px;
+    color: #333;
+    transition: 0.2s;
+  }
+  .nav-links a:hover {
+    color: var(--teal-deep);
+  }
+  .lang {
+    font-size: 13px;
+    border: 1px solid var(--line);
+    border-radius: 980px;
+    padding: 4px 12px;
+    color: var(--muted);
+  }
+  @media (max-width: 720px) {
+    .nav-links a:not(.lang) {
+      display: none;
+    }
+  }
+</style>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FCH Portfolio · 原型总览</title>
+<style>
+:root{
+  --paper:#FBFBFD; --white:#fff; --ink:#1D1D1F; --graphite:#15191B;
+  --muted:#6E6E73; --line:rgba(0,0,0,0.09);
+  --teal:#0E8C82; --teal-deep:#0A6E66; --teal-soft:#E8F4F2;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","PingFang SC","Microsoft YaHei",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font);background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;letter-spacing:-0.01em;line-height:1.5;}
+a{color:inherit;text-decoration:none;}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px;}
+/* hero */
+.head{padding:84px 24px 54px;max-width:1080px;margin:0 auto;}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--teal-deep);}
+.head h1{font-size:clamp(38px,6vw,64px);font-weight:600;letter-spacing:-0.035em;line-height:1.02;margin-top:18px;}
+.head p{font-size:clamp(17px,2.2vw,20px);color:var(--muted);margin-top:20px;max-width:600px;line-height:1.55;}
+.flow{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px;font-size:13.5px;color:var(--muted);align-items:center;}
+.flow span{background:#fff;border:1px solid var(--line);border-radius:980px;padding:7px 15px;}
+.flow .arr{color:#c4c4c8;}
+/* tokens */
+.tokens{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px;}
+.tk{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:22px 24px;}
+.tk .lbl{font-size:12px;color:#9a9aa0;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:16px;}
+.sw-row{display:flex;gap:12px;flex-wrap:wrap;}
+.sw{text-align:center;}
+.sw i{display:block;width:48px;height:48px;border-radius:12px;border:1px solid var(--line);}
+.sw small{display:block;font-size:11px;color:#9a9aa0;margin-top:6px;}
+.type-demo .big{font-size:30px;font-weight:600;letter-spacing:-0.03em;line-height:1.1;}
+.type-demo .mid{font-size:16px;color:var(--muted);margin-top:6px;}
+.type-demo .sm{font-size:13px;color:#9a9aa0;margin-top:4px;}
+@media(max-width:720px){.tokens{grid-template-columns:1fr;}}
+/* prototypes grid */
+.proto-sec{padding:54px 0 90px;}
+.proto-sec h2{font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal-deep);margin-bottom:24px;}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
+.pcard{background:var(--white);border:1px solid var(--line);border-radius:22px;overflow:hidden;transition:.3s;display:flex;flex-direction:column;}
+.pcard:hover{transform:translateY(-5px);box-shadow:0 20px 44px rgba(0,0,0,0.08);}
+.pcard .preview{height:200px;border-bottom:1px solid var(--line);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.pcard .body{padding:26px 28px 28px;}
+.pcard .idx{font-size:13px;font-weight:600;color:var(--teal-deep);letter-spacing:0.06em;}
+.pcard h3{font-size:22px;font-weight:600;letter-spacing:-0.02em;margin:8px 0 8px;}
+.pcard p{font-size:14.5px;color:var(--muted);line-height:1.55;}
+.pcard .open{margin-top:18px;display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:500;color:var(--teal-deep);}
+@media(max-width:720px){.grid{grid-template-columns:1fr;}}
+.foot{border-top:1px solid var(--line);padding:30px 24px;text-align:center;font-size:13px;color:#9a9aa0;}
+</style>
+</head>
+<body>
+
+<header class="head">
+  <div class="eyebrow">FCH Portfolio · UI 原型</div>
+  <h1>个人主页原型总览</h1>
+  <p>Apple 风格 · 石青 / 石墨配色 · 白为主 + 局部深色段落。以下为低保真到高保真原型，占位内容待替换为真实素材。</p>
+  <div class="flow">
+    <span>门禁</span><span class="arr">→</span><span>主页</span><span class="arr">→</span><span>项目详情</span><span class="arr">·</span><span>数字分身</span><span class="arr">·</span><span>后台</span>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="tokens">
+    <div class="tk">
+      <div class="lbl">配色</div>
+      <div class="sw-row">
+        <div class="sw"><i style="background:#FBFBFD"></i><small>纸白</small></div>
+        <div class="sw"><i style="background:#fff"></i><small>卡片白</small></div>
+        <div class="sw"><i style="background:#15191B"></i><small>石墨</small></div>
+        <div class="sw"><i style="background:#6E6E73"></i><small>中性灰</small></div>
+        <div class="sw"><i style="background:#0E8C82"></i><small>石青</small></div>
+        <div class="sw"><i style="background:#0A6E66"></i><small>深青</small></div>
+      </div>
+    </div>
+    <div class="tk type-demo">
+      <div class="lbl">字阶</div>
+      <div class="big">懂城市的 AI 产品经理</div>
+      <div class="mid">副标题 · 中性灰 16px</div>
+      <div class="sm">说明文字 · 13px</div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <section class="proto-sec">
+    <h2>五个页面原型</h2>
+    <div class="grid">
+
+      <a href="01-gate.html" class="pcard">
+        <div class="preview" style="background:#f4f7f6;">
+          <svg viewBox="0 0 200 200" width="120" height="120"><rect x="50" y="46" width="100" height="108" rx="14" fill="#fff" stroke="rgba(0,0,0,0.1)"/><rect x="64" y="78" width="72" height="16" rx="5" fill="#eef3f2"/><rect x="64" y="102" width="72" height="16" rx="5" fill="#eef3f2"/><rect x="64" y="126" width="72" height="16" rx="8" fill="#0E8C82"/></svg>
+        </div>
+        <div class="body">
+          <div class="idx">01</div>
+          <h3>门禁页</h3>
+          <p>硬门槛 · 公司名 + 职位双必填，体验做轻，提交即埋点与提醒。</p>
+          <span class="open">打开原型 →</span>
+        </div>
+      </a>
+
+      <a href="02-home.html" class="pcard">
+        <div class="preview" style="background:#f4f7f6;">
+          <svg viewBox="0 0 200 200" width="130" height="130"><rect x="36" y="40" width="128" height="120" rx="12" fill="#fff" stroke="rgba(0,0,0,0.1)"/><rect x="50" y="56" width="60" height="9" rx="3" fill="#1D1D1F"/><rect x="50" y="70" width="40" height="9" rx="3" fill="#0E8C82"/><rect x="50" y="92" width="46" height="22" rx="5" fill="#eef3f2"/><rect x="102" y="92" width="46" height="22" rx="5" fill="#eef3f2"/><rect x="50" y="122" width="22" height="22" rx="4" fill="#eef3f2"/><rect x="76" y="122" width="22" height="22" rx="4" fill="#eef3f2"/><rect x="102" y="122" width="22" height="22" rx="4" fill="#eef3f2"/><rect x="128" y="122" width="22" height="22" rx="4" fill="#eef3f2"/></svg>
+        </div>
+        <div class="body">
+          <div class="idx">02</div>
+          <h3>主页（长滚动）</h3>
+          <p>Hero → 能力 → 经历 → 8 项目 → 竞赛 → 技能 → 联系，含悬浮数字分身入口。</p>
+          <span class="open">打开原型 →</span>
+        </div>
+      </a>
+
+      <a href="03-project-detail.html" class="pcard">
+        <div class="preview" style="background:#15191B;">
+          <svg viewBox="0 0 200 200" width="120" height="120"><rect x="46" y="40" width="108" height="120" rx="12" fill="#fff"/><rect x="46" y="40" width="108" height="40" rx="12" fill="#eaf2f0"/><circle cx="100" cy="60" r="6" fill="#0E8C82"/><rect x="60" y="92" width="50" height="9" rx="3" fill="#1D1D1F"/><rect x="60" y="108" width="80" height="7" rx="3" fill="#e5e5e7"/><rect x="60" y="120" width="70" height="7" rx="3" fill="#e5e5e7"/><rect x="60" y="138" width="40" height="14" rx="7" fill="#0E8C82"/></svg>
+        </div>
+        <div class="body">
+          <div class="idx">03</div>
+          <h3>项目详情弹层</h3>
+          <p>8 张卡片通用模板：图 + 角色 + 概述 + 工作 + 成果图 + 外链。</p>
+          <span class="open">打开原型 →</span>
+        </div>
+      </a>
+
+      <a href="04-rag-chat.html" class="pcard">
+        <div class="preview" style="background:#15191B;">
+          <svg viewBox="0 0 200 200" width="120" height="120"><rect x="64" y="32" width="100" height="136" rx="12" fill="#fff"/><rect x="78" y="46" width="40" height="8" rx="3" fill="#1D1D1F"/><rect x="78" y="66" width="72" height="20" rx="8" fill="#eef3f2"/><rect x="78" y="92" width="72" height="14" rx="7" fill="#eef3f2"/><rect x="100" y="112" width="50" height="18" rx="9" fill="#0E8C82"/><rect x="78" y="146" width="72" height="14" rx="7" fill="#f0f0f2"/></svg>
+        </div>
+        <div class="body">
+          <div class="idx">04</div>
+          <h3>RAG 数字分身</h3>
+          <p>侧滑对话 · 默认建议、引用作答、命中作品可一键跳转。</p>
+          <span class="open">打开原型 →</span>
+        </div>
+      </a>
+
+      <a href="05-admin.html" class="pcard">
+        <div class="preview" style="background:#f4f7f6;">
+          <svg viewBox="0 0 200 200" width="140" height="140"><rect x="30" y="44" width="140" height="112" rx="12" fill="#fff" stroke="rgba(0,0,0,0.1)"/><rect x="42" y="56" width="28" height="26" rx="5" fill="#eef3f2"/><rect x="74" y="56" width="28" height="26" rx="5" fill="#eef3f2"/><rect x="106" y="56" width="28" height="26" rx="5" fill="#eef3f2"/><rect x="138" y="56" width="20" height="26" rx="5" fill="#0E8C82" opacity=".25"/><rect x="42" y="94" width="116" height="12" rx="4" fill="#E8F4F2"/><rect x="42" y="112" width="116" height="10" rx="4" fill="#f2f2f4"/><rect x="42" y="128" width="116" height="10" rx="4" fill="#f2f2f4"/></svg>
+        </div>
+        <div class="body">
+          <div class="idx">05</div>
+          <h3>后台看板</h3>
+          <p>仅本人可见 · 来访雷达、访问记录、RAG 提问记录。</p>
+          <span class="open">打开原型 →</span>
+        </div>
+      </a>
+
+      <a href="01-gate.html" class="pcard" style="border-style:dashed;background:transparent;">
+        <div class="preview" style="background:transparent;">
+          <svg viewBox="0 0 200 200" width="90" height="90"><circle cx="60" cy="70" r="6" fill="#0E8C82"/><circle cx="140" cy="90" r="6" fill="#0E8C82"/><circle cx="90" cy="140" r="6" fill="#0E8C82"/><line x1="60" y1="70" x2="140" y2="90" stroke="#0E8C82" stroke-width="2"/><line x1="140" y1="90" x2="90" y2="140" stroke="#0E8C82" stroke-width="2"/></svg>
+        </div>
+        <div class="body">
+          <div class="idx">体验动线</div>
+          <h3>从门禁开始走一遍</h3>
+          <p>按真实访客顺序：门禁 → 主页 → 点开项目 / 问数字分身。</p>
+          <span class="open">进入门禁 →</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+</div>
+
+<div class="foot">© 2026 范诚昊 · UI 原型 v1 · 内容为占位，待替换真实素材</div>
+</body>
+</html>

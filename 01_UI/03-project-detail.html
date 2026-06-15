@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>项目详情 · 生活圈幸福度模型</title>
+<style>
+:root{
+  --paper:#FBFBFD; --white:#fff; --ink:#1D1D1F; --graphite:#15191B;
+  --muted:#6E6E73; --line:rgba(0,0,0,0.1);
+  --teal:#0E8C82; --teal-deep:#0A6E66; --teal-soft:#E8F4F2;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","PingFang SC","Microsoft YaHei",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font);color:var(--ink);-webkit-font-smoothing:antialiased;letter-spacing:-0.01em;background:var(--paper);}
+a{color:inherit;text-decoration:none;}
+/* dim backdrop */
+.backdrop{position:fixed;inset:0;background:rgba(20,24,26,0.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);display:flex;align-items:flex-start;justify-content:center;padding:48px 20px;overflow-y:auto;z-index:10;}
+.modal{position:relative;width:100%;max-width:780px;background:var(--white);border-radius:26px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,0.3);animation:rise .5s cubic-bezier(.16,1,.3,1);}
+@keyframes rise{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:none;}}
+.close{position:absolute;top:18px;right:18px;z-index:5;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.85);backdrop-filter:blur(8px);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.2s;}
+.close:hover{background:#fff;transform:scale(1.05);}
+.close svg{width:16px;height:16px;}
+/* hero art */
+.m-art{height:240px;background:#eaf2f0;position:relative;display:flex;align-items:center;justify-content:center;}
+.m-body{padding:38px 44px 44px;}
+.tag{display:inline-block;font-size:12px;font-weight:500;color:var(--teal-deep);background:var(--teal-soft);border-radius:980px;padding:6px 14px;letter-spacing:0.02em;}
+.m-title{font-size:clamp(26px,4vw,36px);font-weight:600;letter-spacing:-0.03em;line-height:1.12;margin:18px 0 0;}
+.meta{display:flex;flex-wrap:wrap;gap:28px;margin-top:24px;padding-bottom:26px;border-bottom:1px solid var(--line);}
+.meta .k{font-size:12px;color:#9a9aa0;letter-spacing:0.06em;text-transform:uppercase;}
+.meta .v{font-size:15px;color:var(--ink);margin-top:6px;font-weight:500;}
+.block{margin-top:32px;}
+.block h3{font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal-deep);margin-bottom:14px;}
+.block p{font-size:16px;line-height:1.7;color:#333;}
+.block ul{list-style:none;margin-top:6px;}
+.block li{font-size:16px;line-height:1.7;color:#333;padding-left:22px;position:relative;}
+.block li::before{content:"";position:absolute;left:2px;top:11px;width:6px;height:6px;border-radius:50%;background:var(--teal);}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:6px;}
+.shot{aspect-ratio:4/3;background:#eef3f2;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#a9b8b5;font-size:12px;border:1px solid var(--line);}
+.links{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px;}
+.lk{display:inline-flex;align-items:center;gap:8px;height:46px;padding:0 22px;border-radius:980px;font-size:15px;font-weight:500;cursor:pointer;transition:.25s;}
+.lk-primary{background:var(--teal);color:#fff;}
+.lk-primary:hover{background:var(--teal-deep);}
+.lk-ghost{border:1px solid var(--line);color:var(--ink);}
+.lk-ghost:hover{background:var(--paper);}
+@media(max-width:640px){.m-body{padding:30px 24px 34px;}.gallery{grid-template-columns:repeat(2,1fr);}.m-art{height:180px;}}
+</style>
+</head>
+<body>
+
+<div class="backdrop">
+  <div class="modal">
+    <a href="02-home.html" class="close" aria-label="关闭">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#1D1D1F" stroke-width="2"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+    </a>
+
+    <div class="m-art">
+      <svg viewBox="0 0 600 240" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+        <rect width="600" height="240" fill="#eaf2f0"/>
+        <g stroke="rgba(14,140,130,0.18)" stroke-width="1"><line x1="150" y1="0" x2="150" y2="240"/><line x1="300" y1="0" x2="300" y2="240"/><line x1="450" y1="0" x2="450" y2="240"/><line x1="0" y1="80" x2="600" y2="80"/><line x1="0" y1="160" x2="600" y2="160"/></g>
+        <g><circle cx="150" cy="80" r="7" fill="#0E8C82"/><circle cx="300" cy="160" r="9" fill="#0E8C82"/><circle cx="450" cy="80" r="7" fill="#0E8C82"/><circle cx="300" cy="80" r="5" fill="#0E8C82" opacity=".6"/></g>
+        <g stroke="#0E8C82" stroke-width="1.6" opacity=".55"><line x1="150" y1="80" x2="300" y2="160"/><line x1="300" y1="160" x2="450" y2="80"/><line x1="300" y1="160" x2="300" y2="80"/></g>
+      </svg>
+    </div>
+
+    <div class="m-body">
+      <span class="tag">AI · 城市 · 机器学习</span>
+      <h1 class="m-title">城市居民生活圈幸福度<br>智能监测与推演模型</h1>
+
+      <div class="meta">
+        <div><div class="k">我的角色</div><div class="v">数据 + 建模</div></div>
+        <div><div class="k">时间</div><div class="v">2026.3 – 2026.5</div></div>
+        <div><div class="k">区域</div><div class="v">上海市</div></div>
+      </div>
+
+      <div class="block">
+        <h3>项目概述</h3>
+        <p>融合 POI、街景影像与居民文本数据，构建生活圈幸福度评价体系；运用空间分析、机器学习与大语言模型，识别影响因子并推演优化策略，支持城市精细化治理。</p>
+      </div>
+
+      <div class="block">
+        <h3>我的工作</h3>
+        <ul>
+          <li>机器学习变量的数据清洗与特征处理；</li>
+          <li>完成 XGBoost 等模型的训练、调参与结果解释；</li>
+          <li>结合大语言模型对居民文本做语义层面的影响因子识别。</li>
+        </ul>
+      </div>
+
+      <div class="block">
+        <h3>产出成果</h3>
+        <p>一套可解释的幸福度评价与推演模型，可定位影响生活圈幸福度的关键因子，并给出可落地的空间优化方向。（以下为占位图，正式版替换为真实成果图。）</p>
+        <div class="gallery">
+          <div class="shot">成果图 1</div>
+          <div class="shot">成果图 2</div>
+          <div class="shot">成果图 3</div>
+        </div>
+      </div>
+
+      <div class="links">
+        <a href="#" class="lk lk-primary">查看 Demo →</a>
+        <a href="#" class="lk lk-ghost">报告 PDF</a>
+        <a href="02-home.html" class="lk lk-ghost">返回作品集</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

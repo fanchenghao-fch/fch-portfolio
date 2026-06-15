@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>后台 · 来访雷达</title>
+<style>
+:root{
+  --paper:#FBFBFD; --white:#fff; --ink:#1D1D1F; --graphite:#15191B;
+  --muted:#6E6E73; --line:rgba(0,0,0,0.09);
+  --teal:#0E8C82; --teal-deep:#0A6E66; --teal-soft:#E8F4F2;
+  --font:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue","PingFang SC","Microsoft YaHei",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--font);background:var(--paper);color:var(--ink);-webkit-font-smoothing:antialiased;letter-spacing:-0.01em;}
+a{color:inherit;text-decoration:none;}
+.nav{position:sticky;top:0;z-index:40;background:rgba(251,251,253,0.8);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line);}
+.nav-in{max-width:1120px;margin:0 auto;height:54px;display:flex;align-items:center;justify-content:space-between;padding:0 26px;}
+.nav-in .b{font-weight:600;font-size:16px;letter-spacing:-0.02em;display:flex;align-items:center;gap:9px;}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--teal);}
+.nav-in .who{font-size:13px;color:var(--muted);}
+.wrap{max-width:1120px;margin:0 auto;padding:38px 26px 80px;}
+.h1{font-size:30px;font-weight:600;letter-spacing:-0.03em;}
+.sub{font-size:15px;color:var(--muted);margin-top:8px;}
+/* metrics */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:30px;}
+.metric{background:var(--white);border:1px solid var(--line);border-radius:18px;padding:22px 24px;}
+.metric .k{font-size:13px;color:var(--muted);}
+.metric .v{font-size:34px;font-weight:600;letter-spacing:-0.03em;margin-top:10px;line-height:1;}
+.metric .d{font-size:12.5px;color:var(--teal-deep);margin-top:10px;}
+@media(max-width:880px){.metrics{grid-template-columns:repeat(2,1fr);}}
+/* panel */
+.panel{background:var(--white);border:1px solid var(--line);border-radius:20px;margin-top:26px;overflow:hidden;}
+.panel-head{padding:20px 26px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;}
+.panel-head h2{font-size:18px;font-weight:600;letter-spacing:-0.02em;}
+.panel-head .hint{font-size:13px;color:var(--muted);}
+/* radar highlight */
+.radar{padding:18px 26px;border-bottom:1px solid var(--line);background:var(--teal-soft);display:flex;align-items:center;gap:14px;}
+.radar .pulse{width:10px;height:10px;border-radius:50%;background:var(--teal);box-shadow:0 0 0 0 rgba(14,140,130,0.5);animation:rp 2s infinite;}
+@keyframes rp{0%{box-shadow:0 0 0 0 rgba(14,140,130,0.45);}70%{box-shadow:0 0 0 12px rgba(14,140,130,0);}100%{box-shadow:0 0 0 0 rgba(14,140,130,0);}}
+.radar .txt{font-size:14px;color:var(--teal-deep);}
+.radar .txt b{font-weight:600;}
+/* table */
+.tbl{width:100%;border-collapse:collapse;}
+.tbl th{text-align:left;font-size:12px;font-weight:500;color:#9a9aa0;letter-spacing:0.05em;text-transform:uppercase;padding:14px 26px;border-bottom:1px solid var(--line);}
+.tbl td{font-size:14.5px;padding:16px 26px;border-bottom:1px solid var(--line);color:#333;}
+.tbl tr:last-child td{border-bottom:none;}
+.tbl tr:hover td{background:#fafbfb;}
+.co{font-weight:600;color:var(--ink);}
+.pill{display:inline-block;font-size:12px;border-radius:980px;padding:4px 11px;}
+.pill-hot{background:var(--teal-soft);color:var(--teal-deep);}
+.pill-new{background:#f0f0f2;color:#666;}
+.bar{display:inline-flex;align-items:center;gap:8px;}
+.bar .track{width:60px;height:6px;border-radius:3px;background:#eee;overflow:hidden;}
+.bar .fill{height:100%;background:var(--teal);border-radius:3px;}
+.q{color:#333;}
+.qt{font-size:12.5px;color:#9a9aa0;}
+@media(max-width:760px){.col-hide{display:none;}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-in">
+    <div class="b"><span class="dot"></span>后台 · 来访雷达</div>
+    <span class="who">范诚昊 · 仅本人可见</span>
+  </div>
+</nav>
+
+<div class="wrap">
+  <div class="h1">本周来访概览</div>
+  <div class="sub">数据为原型占位，正式版由真实埋点驱动 · 2026.06.08 – 06.14</div>
+
+  <div class="metrics">
+    <div class="metric"><div class="k">来访公司</div><div class="v">7</div><div class="d">较上周 +3</div></div>
+    <div class="metric"><div class="k">总访问</div><div class="v">14</div><div class="d">较上周 +5</div></div>
+    <div class="metric"><div class="k">深度浏览</div><div class="v">4</div><div class="d">停留 &gt; 3 分钟</div></div>
+    <div class="metric"><div class="k">RAG 提问</div><div class="v">9</div><div class="d">来自 5 家公司</div></div>
+  </div>
+
+  <div class="panel">
+    <div class="radar">
+      <span class="pulse"></span>
+      <span class="txt"><b>某某智能科技</b> 本周第 3 次到访，深度浏览了 3 个 AI 项目并提了 4 个问题 —— 建议主动跟进。</span>
+    </div>
+    <div class="panel-head">
+      <h2>访问记录</h2>
+      <span class="hint">公司 · 职位 · 行为</span>
+    </div>
+    <table class="tbl">
+      <thead><tr><th>公司</th><th>职位</th><th class="col-hide">时间</th><th>停留</th><th class="col-hide">浏览项目</th><th>状态</th></tr></thead>
+      <tbody>
+        <tr><td class="co">某某智能科技</td><td>技术招聘</td><td class="col-hide">今天 14:22</td><td><span class="bar"><span class="track"><span class="fill" style="width:90%"></span></span>6:40</span></td><td class="col-hide">幸福度模型 · 热点工具 · Agent</td><td><span class="pill pill-hot">重点关注</span></td></tr>
+        <tr><td class="co">某某规划设计院</td><td>主创规划师</td><td class="col-hide">今天 10:05</td><td><span class="bar"><span class="track"><span class="fill" style="width:70%"></span></span>4:12</span></td><td class="col-hide">川沙连片 · WUPEN 设计</td><td><span class="pill pill-hot">深度浏览</span></td></tr>
+        <tr><td class="co">某某产品公司</td><td>产品总监</td><td class="col-hide">昨天 19:48</td><td><span class="bar"><span class="track"><span class="fill" style="width:55%"></span></span>3:05</span></td><td class="col-hide">热点工具 · 此芯实习</td><td><span class="pill pill-hot">深度浏览</span></td></tr>
+        <tr><td class="co">某某城市研究院</td><td>HR</td><td class="col-hide">昨天 16:30</td><td><span class="bar"><span class="track"><span class="fill" style="width:30%"></span></span>1:20</span></td><td class="col-hide">生活圈模型</td><td><span class="pill pill-new">新到访</span></td></tr>
+        <tr><td class="co">某某咨询</td><td>招聘专员</td><td class="col-hide">06.12 09:11</td><td><span class="bar"><span class="track"><span class="fill" style="width:18%"></span></span>0:48</span></td><td class="col-hide">—</td><td><span class="pill pill-new">新到访</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <h2>RAG 提问记录</h2>
+      <span class="hint">反推每家公司的关注点</span>
+    </div>
+    <table class="tbl">
+      <thead><tr><th>公司</th><th>问题</th><th class="col-hide">时间</th></tr></thead>
+      <tbody>
+        <tr><td class="co">某某智能科技</td><td class="q">他做过哪些落地的 AI 项目？</td><td class="col-hide qt">今天 14:25</td></tr>
+        <tr><td class="co">某某智能科技</td><td class="q">他在此芯科技负责到什么程度？</td><td class="col-hide qt">今天 14:28</td></tr>
+        <tr><td class="co">某某产品公司</td><td class="q">他会写代码吗？能独立做工具吗？</td><td class="col-hide qt">昨天 19:52</td></tr>
+        <tr><td class="co">某某规划设计院</td><td class="q">他的规划项目有哪些代表作？</td><td class="col-hide qt">今天 10:09</td></tr>
+        <tr><td class="co">某某城市研究院</td><td class="q">他的机器学习建模具体做了什么？</td><td class="col-hide qt">昨天 16:33</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+</body>
+</html>

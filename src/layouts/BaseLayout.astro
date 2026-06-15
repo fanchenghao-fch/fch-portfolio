@@ -1,0 +1,37 @@
+---
+import "@/styles/global.css";
+
+export interface Props {
+  title: string;
+  description?: string;
+  lang?: "zh" | "en";
+  noIndex?: boolean;
+}
+
+const {
+  title,
+  description = "范诚昊 · 懂城市的 AI 产品经理",
+  lang = "zh",
+  noIndex = false,
+} = Astro.props;
+const htmlLang = lang === "en" ? "en" : "zh-CN";
+---
+
+<!doctype html>
+<html lang={htmlLang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {
+      noIndex && (
+        <meta name="robots" content="noindex, nofollow" />
+      )
+    }
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

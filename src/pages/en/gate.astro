@@ -1,0 +1,285 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+// English gate page: reuses the same layout as Chinese gate but sets lang context
+---
+
+<BaseLayout title="Before Entering · Fan Chenghao" lang="en">
+  <style>
+    .top {
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      max-width: 1080px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .brand {
+      font-weight: 600;
+      font-size: 17px;
+      letter-spacing: -0.02em;
+    }
+    .lang-toggle {
+      font-size: 13px;
+      border: 1px solid var(--line);
+      border-radius: 980px;
+      padding: 5px 13px;
+      color: var(--muted);
+      background: none;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .wrap {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      min-height: calc(100vh - 56px);
+    }
+    .bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .card {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 430px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 44px 40px 38px;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.07);
+    }
+    .logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 13px;
+      background: var(--teal-soft);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 26px;
+    }
+    .logo svg {
+      width: 26px;
+      height: 26px;
+    }
+    h1 {
+      font-size: 27px;
+      font-weight: 600;
+      letter-spacing: -0.03em;
+      line-height: 1.18;
+    }
+    .sub {
+      font-size: 15px;
+      color: var(--muted);
+      margin-top: 12px;
+      line-height: 1.55;
+    }
+    .field {
+      margin-top: 24px;
+    }
+    .field label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 8px;
+    }
+    .field label .req {
+      color: var(--teal);
+    }
+    .field input {
+      width: 100%;
+      height: 50px;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+      padding: 0 16px;
+      font-size: 16px;
+      font-family: inherit;
+      color: var(--ink);
+      background: #fff;
+      transition: 0.2s;
+      letter-spacing: -0.01em;
+    }
+    .field input::placeholder {
+      color: #b7b7bd;
+    }
+    .field input:focus {
+      outline: none;
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(14, 140, 130, 0.14);
+    }
+    .enter {
+      width: 100%;
+      height: 52px;
+      margin-top: 30px;
+      border: none;
+      border-radius: 980px;
+      background: var(--teal);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 500;
+      font-family: inherit;
+      cursor: pointer;
+      transition: 0.25s;
+      letter-spacing: -0.01em;
+    }
+    .enter:hover:not(:disabled) {
+      background: var(--teal-deep);
+    }
+    .enter:disabled {
+      background: #c9d6d4;
+      cursor: not-allowed;
+    }
+    .note {
+      font-size: 12.5px;
+      color: #9a9aa0;
+      margin-top: 18px;
+      line-height: 1.55;
+      text-align: center;
+    }
+    .note strong {
+      color: var(--muted);
+      font-weight: 500;
+    }
+    @media (max-width: 480px) {
+      .card {
+        padding: 36px 26px 30px;
+        border-radius: 20px;
+      }
+      h1 {
+        font-size: 24px;
+      }
+    }
+  </style>
+
+  <div class="top">
+    <span class="brand">Fan Chenghao</span>
+    <a href="/gate" class="lang-toggle">EN / 中</a>
+  </div>
+
+  <div class="wrap">
+    <svg
+      class="bg"
+      viewBox="0 0 1000 700"
+      preserveAspectRatio="xMidYMid slice"
+      aria-hidden="true"
+    >
+      <g stroke="rgba(14,140,130,0.07)" stroke-width="1">
+        <line x1="200" y1="0" x2="200" y2="700" />
+        <line x1="400" y1="0" x2="400" y2="700" />
+        <line x1="600" y1="0" x2="600" y2="700" />
+        <line x1="800" y1="0" x2="800" y2="700" />
+        <line x1="0" y1="160" x2="1000" y2="160" />
+        <line x1="0" y1="340" x2="1000" y2="340" />
+        <line x1="0" y1="520" x2="1000" y2="520" />
+      </g>
+      <g fill="rgba(14,140,130,0.18)">
+        <circle cx="200" cy="160" r="4" />
+        <circle cx="600" cy="340" r="5" />
+        <circle cx="800" cy="520" r="4" />
+      </g>
+    </svg>
+
+    <div class="card">
+      <div class="logo">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <circle cx="6" cy="6" r="2.4" fill="#0E8C82" />
+          <circle cx="18" cy="9" r="2.4" fill="#0E8C82" />
+          <circle cx="10" cy="18" r="2.4" fill="#0E8C82" />
+          <line x1="6" y1="6" x2="18" y2="9" stroke="#0E8C82" stroke-width="1.4" />
+          <line x1="18" y1="9" x2="10" y2="18" stroke="#0E8C82" stroke-width="1.4" />
+        </svg>
+      </div>
+      <h1>Before entering,<br />let's get to know each other.</h1>
+      <p class="sub">
+        Tell me which team you're from — it helps me understand who's interested and prepare for future conversations.
+      </p>
+
+      <form method="POST" action="/api/visit" id="gate-form">
+        <div class="field">
+          <label for="company">Company / Team <span class="req">*</span></label>
+          <input
+            id="company"
+            name="company"
+            type="text"
+            placeholder="e.g. Acme Tech / Design Studio"
+            required
+            maxlength="200"
+          />
+        </div>
+        <div class="field">
+          <label for="role">Your Role <span class="req">*</span></label>
+          <input
+            id="role"
+            name="role"
+            type="text"
+            placeholder="e.g. Tech Recruiter / Product Lead"
+            required
+            maxlength="200"
+          />
+        </div>
+
+        <button class="enter" id="enter-btn" type="submit" disabled>Enter Site</button>
+      </form>
+      <p class="note">
+        <strong>Visible only to me</strong> · Not used for any other purpose. No identity verification.
+      </p>
+    </div>
+  </div>
+</BaseLayout>
+
+<script>
+  const form = document.getElementById("gate-form") as HTMLFormElement;
+  const btn = document.getElementById("enter-btn") as HTMLButtonElement;
+  const company = document.getElementById("company") as HTMLInputElement;
+  const role = document.getElementById("role") as HTMLInputElement;
+
+  function check() {
+    const c = company.value.trim();
+    const r = role.value.trim();
+    btn.disabled = !(c && r);
+  }
+
+  company.addEventListener("input", check);
+  role.addEventListener("input", check);
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const c = company.value.trim();
+    const r = role.value.trim();
+    if (!c || !r) return;
+
+    btn.disabled = true;
+    btn.textContent = "Entering...";
+
+    try {
+      const resp = await fetch("/api/visit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ company: c, role: r }),
+      });
+
+      if (resp.ok) {
+        window.location.href = "/en/home";
+      } else {
+        const data = await resp.json();
+        alert(data.error || "Submission failed, please retry");
+        btn.disabled = false;
+        btn.textContent = "Enter Site";
+      }
+    } catch {
+      alert("Network error, please retry");
+      btn.disabled = false;
+      btn.textContent = "Enter Site";
+    }
+  });
+</script>

@@ -1,0 +1,60 @@
+---
+import type { Lang } from "../lib/i18n";
+import { profileContent } from "../data/profile";
+
+const lang = (Astro.locals?.lang ?? "zh") as Lang;
+const timeline = profileContent[lang].timeline;
+---
+
+<div class="tl">
+  {timeline.map((item) => (
+    <div class="tl-item reveal">
+      <div class="tl-time">{item.time}</div>
+      <h3>{item.title}</h3>
+      <p>{item.desc}</p>
+    </div>
+  ))}
+</div>
+
+<style>
+  .tl {
+    margin-top: 54px;
+    border-left: 1px solid rgba(255, 255, 255, 0.16);
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 42px;
+  }
+  .tl-item {
+    position: relative;
+  }
+  .tl-item::before {
+    content: "";
+    position: absolute;
+    left: -36px;
+    top: 6px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--teal);
+    box-shadow: 0 0 0 4px rgba(14, 140, 130, 0.2);
+  }
+  .tl-time {
+    font-size: 13px;
+    color: #8e8e93;
+    letter-spacing: 0.04em;
+  }
+  .tl-item h3 {
+    font-size: 21px;
+    font-weight: 600;
+    margin: 6px 0 8px;
+    color: #fff;
+    letter-spacing: -0.02em;
+  }
+  .tl-item p {
+    font-size: 15px;
+    color: #a1a1a6;
+    line-height: 1.6;
+    max-width: 560px;
+  }
+</style>

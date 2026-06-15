@@ -1,0 +1,43 @@
+---
+import type { Lang } from "../lib/i18n";
+import { profileContent } from "../data/profile";
+
+const lang = (Astro.locals?.lang ?? "zh") as Lang;
+const fabText = profileContent[lang].fab;
+---
+
+<a href="/rag" class="fab">
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M12 3C7 3 3 6.6 3 11c0 2.4 1.2 4.5 3.2 5.9L5.5 21l4.4-2.2c.7.1 1.4.2 2.1.2 5 0 9-3.6 9-8s-4-8-9-8z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/>
+  </svg>
+  {fabText}
+</a>
+
+<style>
+  .fab {
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 60;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    height: 54px;
+    padding: 0 22px 0 18px;
+    border-radius: 980px;
+    background: var(--teal);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 500;
+    box-shadow: 0 10px 30px rgba(14, 140, 130, 0.4);
+    transition: 0.25s;
+  }
+  .fab:hover {
+    background: var(--teal-deep);
+    transform: translateY(-2px);
+  }
+  .fab svg {
+    width: 22px;
+    height: 22px;
+  }
+</style>

@@ -1,0 +1,344 @@
+---
+import AdminLayout from "../../layouts/AdminLayout.astro";
+---
+
+<AdminLayout>
+  <nav class="nav">
+    <div class="nav-in">
+      <div class="b"><span class="dot"></span>后台 · 来访雷达</div>
+      <span class="who">范诚昊 · 仅本人可见</span>
+    </div>
+  </nav>
+
+  <div class="wrap">
+    <div class="h1">本周来访概览</div>
+    <div class="sub" id="date-range">加载中...</div>
+
+    <div class="metrics" id="metrics">
+      <div class="metric"><div class="k">来访公司</div><div class="v">--</div><div class="d">较上周 --</div></div>
+      <div class="metric"><div class="k">总访问</div><div class="v">--</div><div class="d">较上周 --</div></div>
+      <div class="metric"><div class="k">深度浏览</div><div class="v">--</div><div class="d">停留 &gt; 3 分钟</div></div>
+      <div class="metric"><div class="k">RAG 提问</div><div class="v">--</div><div class="d">来自 -- 家公司</div></div>
+    </div>
+
+    <div class="panel">
+      <div class="radar" id="radar" style="display:none;">
+        <span class="pulse"></span>
+        <span class="txt" id="radar-txt"></span>
+      </div>
+      <div class="panel-head">
+        <h2>访问记录</h2>
+        <span class="hint">公司 · 职位 · 行为</span>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="tbl">
+          <thead><tr><th>公司</th><th>职位</th><th class="col-hide">时间</th><th>停留</th><th class="col-hide">浏览项目</th></tr></thead>
+          <tbody id="visits-tbody">
+            <tr><td colspan="5" style="text-align:center;color:var(--muted);padding:40px;">加载中...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-head">
+        <h2>RAG 提问记录</h2>
+        <span class="hint">反推每家公司的关注点</span>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="tbl">
+          <thead><tr><th>公司</th><th>问题</th><th class="col-hide">时间</th></tr></thead>
+          <tbody id="rag-tbody">
+            <tr><td colspan="3" style="text-align:center;color:var(--muted);padding:40px;">加载中...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</AdminLayout>
+
+<script>
+  import { createClient } from "@supabase/supabase-js";
+
+  const supabase = createClient(
+    import.meta.env.PUBLIC_SUPABASE_URL,
+    import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
+  );
+
+  // Check auth
+  supabase.auth.getSession().then(({ data: { session } }) => {
+    if (!session) {
+      window.location.href = "/admin/login";
+    }
+  });
+
+  async function loadData() {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) return;
+
+    const token = session.access_token;
+
+    // Fetch visits
+    const visitsRes = await fetch("/api/admin?type=visits", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const visitsData = await visitsRes.json();
+
+    // Fetch RAG logs
+    const ragRes = await fetch("/api/admin?type=rag-logs", {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    const ragData = await ragRes.json();
+
+    // Populate visits table
+    const visitsTbody = document.getElementById("visits-tbody")!;
+    if (visitsData.visits?.length) {
+      visitsTbody.innerHTML = visitsData.visits.map((v: any) => `
+        <tr>
+          <td class="co">${escapeHtml(v.company)}</td>
+          <td>${escapeHtml(v.role)}</td>
+          <td class="col-hide">${new Date(v.visited_at).toLocaleString("zh-CN")}</td>
+          <td>
+            <span class="bar"><span class="track"><span class="fill" style="width:${Math.min(v.duration_sec / 400 * 100, 100)}%"></span></span>${fmtDuration(v.duration_sec)}</span>
+          </td>
+          <td class="col-hide">${(v.viewed_projects || []).join(" · ") || "—"}</td>
+        </tr>
+      `).join("");
+    } else {
+      visitsTbody.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--muted);padding:40px;">暂无访问记录</td></tr>';
+    }
+
+    // Populate RAG table
+    const ragTbody = document.getElementById("rag-tbody")!;
+    if (ragData.logs?.length) {
+      ragTbody.innerHTML = ragData.logs.map((l: any) => `
+        <tr>
+          <td class="co">${escapeHtml(l.company || "未知")}</td>
+          <td class="q">${escapeHtml(l.question)}</td>
+          <td class="col-hide qt">${new Date(l.asked_at).toLocaleString("zh-CN")}</td>
+        </tr>
+      `).join("");
+    } else {
+      ragTbody.innerHTML = '<tr><td colspan="3" style="text-align:center;color:var(--muted);padding:40px;">暂无提问记录</td></tr>';
+    }
+
+    // Update metrics
+    document.getElementById("date-range")!.textContent =
+      `数据由真实埋点驱动 · ${new Date().toLocaleDateString("zh-CN")}`;
+  }
+
+  function escapeHtml(s: string) {
+    return s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  }
+
+  function fmtDuration(sec: number) {
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    return `${m}:${s.toString().padStart(2, "0")}`;
+  }
+
+  loadData();
+</script>
+
+<style>
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgba(251, 251, 253, 0.8);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-in {
+    max-width: 1120px;
+    margin: 0 auto;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 26px;
+  }
+  .nav-in .b {
+    font-weight: 600;
+    font-size: 16px;
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+  }
+  .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--teal);
+  }
+  .nav-in .who {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .wrap {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: 38px 26px 80px;
+  }
+  .h1 {
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+  }
+  .sub {
+    font-size: 15px;
+    color: var(--muted);
+    margin-top: 8px;
+  }
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 14px;
+    margin-top: 30px;
+  }
+  .metric {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 22px 24px;
+  }
+  .metric .k {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .metric .v {
+    font-size: 34px;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    margin-top: 10px;
+    line-height: 1;
+  }
+  .metric .d {
+    font-size: 12.5px;
+    color: var(--teal-deep);
+    margin-top: 10px;
+  }
+  @media (max-width: 880px) {
+    .metrics {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  .panel {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    margin-top: 26px;
+    overflow: hidden;
+  }
+  .panel-head {
+    padding: 20px 26px;
+    border-bottom: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .panel-head h2 {
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  .panel-head .hint {
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .radar {
+    padding: 18px 26px;
+    border-bottom: 1px solid var(--line);
+    background: var(--teal-soft);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .radar .pulse {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--teal);
+    box-shadow: 0 0 0 0 rgba(14, 140, 130, 0.5);
+    animation: rp 2s infinite;
+  }
+  @keyframes rp {
+    0% {
+      box-shadow: 0 0 0 0 rgba(14, 140, 130, 0.45);
+    }
+    70% {
+      box-shadow: 0 0 0 12px rgba(14, 140, 130, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(14, 140, 130, 0);
+    }
+  }
+  .radar .txt {
+    font-size: 14px;
+    color: var(--teal-deep);
+  }
+  .radar .txt b {
+    font-weight: 600;
+  }
+  .tbl {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .tbl th {
+    text-align: left;
+    font-size: 12px;
+    font-weight: 500;
+    color: #9a9aa0;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 14px 26px;
+    border-bottom: 1px solid var(--line);
+  }
+  .tbl td {
+    font-size: 14.5px;
+    padding: 16px 26px;
+    border-bottom: 1px solid var(--line);
+    color: #333;
+  }
+  .tbl tr:last-child td {
+    border-bottom: none;
+  }
+  .tbl tr:hover td {
+    background: #fafbfb;
+  }
+  .co {
+    font-weight: 600;
+    color: var(--ink);
+  }
+  .bar {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .bar .track {
+    width: 60px;
+    height: 6px;
+    border-radius: 3px;
+    background: #eee;
+    overflow: hidden;
+  }
+  .bar .fill {
+    height: 100%;
+    background: var(--teal);
+    border-radius: 3px;
+  }
+  .q {
+    color: #333;
+  }
+  .qt {
+    font-size: 12.5px;
+    color: #9a9aa0;
+  }
+  @media (max-width: 760px) {
+    .col-hide {
+      display: none;
+    }
+  }
+</style>
