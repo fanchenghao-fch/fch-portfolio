@@ -22,8 +22,9 @@ interface TimelineItem {
 }
 
 interface Honor {
-  year: string;
   title: string;
+  description: string;
+  imagePlaceholder?: string; // CSS background string for card art, replace with real image later
 }
 
 interface SkillGroup {
@@ -108,30 +109,25 @@ export const profileContent: Record<Lang, ProfileContent> = {
     ],
     honors: [
       {
-        year: "2024",
-        title: "WUPENiCity 城市设计国际竞赛 · 二等奖（一作）",
+        title: "多次代表同济大学参加 全国/上海市 足球比赛",
+        description:
+          "作为同济大学校园组足球队成员，多次代表学校参加全国大学生足球联赛/上海市大学生足球联盟杯赛、联赛，6次夺得上海市冠军，并在全国赛中闯入四强。",
       },
       {
-        year: "2024",
-        title: "WUPENiCity 城市可持续调研报告国际竞赛 · 三等奖",
-      },
-      {
-        year: "2022–2026",
-        title: "上海市大学生足球联盟杯赛 / 联赛冠军等",
-      },
-      {
-        year: "2025.8",
-        title: "乡村规划建设实践 · 同期最佳营造奖",
+        title: "社会实践活动",
+        description:
+          `参与"一米高度看城市"儿童友好主题活动，从儿童视角探索城市规划改进方向；投身乡村规划建设实践（同期获最佳营造奖），结合专业知识服务基层空间营造。`,
       },
     ],
     skills: [
       {
         category: "AI 应用",
-        items: ["Vibe Coding", "Work Flow 搭建", "Agent 搭建"],
+        items: ["Vibe Coding", "Harness Engineering", "Loop Engineering（探索中）", "AI 精细化生图", "AI 视频创作"],
       },
       {
         category: "软件",
         items: [
+          "Claude Code",
           "Cursor",
           "Figma",
           "Pixso",
@@ -217,33 +213,26 @@ export const profileContent: Record<Lang, ProfileContent> = {
     ],
     honors: [
       {
-        year: "2024",
         title:
-          "WUPENiCity Urban Design Intl. Competition · 2nd Prize (1st Author)",
+          "Represented Tongji University in National & Shanghai Football Competitions",
+        description:
+          "As a member of the Tongji University campus football team, represented the university in the National University Football League / Shanghai University Football League Cup and League, won the Shanghai championship 6 times, and reached the national semi-finals.",
       },
       {
-        year: "2024",
-        title:
-          "WUPENiCity Urban Sustainable Survey Intl. Competition · 3rd Prize",
-      },
-      {
-        year: "2022–2026",
-        title:
-          "Shanghai University Football League Cup / League Champion & more",
-      },
-      {
-        year: "2025.8",
-        title: "Rural Planning Practice · Best Construction Award",
+        title: "Social Practice Activities",
+        description:
+          `Participated in the "City at One Meter's Height" child-friendly city initiative, exploring urban planning improvements from a child's perspective; engaged in rural planning and construction practice (won Best Construction Award the same year), applying professional knowledge to grassroots spatial development.`,
       },
     ],
     skills: [
       {
         category: "AI Applications",
-        items: ["Vibe Coding", "Work Flow Building", "Agent Building"],
+        items: ["Vibe Coding", "Harness Engineering", "Loop Engineering (Exploring)", "AI Image Generation", "AI Video Creation"],
       },
       {
         category: "Software",
         items: [
+          "Claude Code",
           "Cursor",
           "Figma",
           "Pixso",

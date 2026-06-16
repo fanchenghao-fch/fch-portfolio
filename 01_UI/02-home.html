@@ -81,12 +81,9 @@ a{color:inherit;text-decoration:none;}
 .card h3{font-size:21px;font-weight:600;margin:16px 0 8px;letter-spacing:-0.02em;line-height:1.2;}
 .card p{font-size:15px;color:var(--muted);line-height:1.55;}
 .card .more{font-size:14px;color:var(--teal-deep);font-weight:500;margin-top:16px;display:inline-flex;align-items:center;gap:5px;}
-@media(max-width:720px){.proj-grid{grid-template-columns:1fr;}}
-/* honors */
-.honor-row{display:flex;flex-wrap:wrap;gap:14px;margin-top:46px;}
-.honor{background:var(--white);border:1px solid var(--line);border-radius:var(--r);padding:18px 22px;flex:1;min-width:220px;}
-.honor .y{font-size:13px;color:var(--muted);}
-.honor strong{display:block;font-size:16px;font-weight:600;margin-top:6px;letter-spacing:-0.01em;}
+@media(max-width:720px){.proj-grid{grid-template-columns:1fr;}.honor-card-grid{grid-template-columns:1fr;}}
+/* honor cards */
+.honor-card-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;margin-top:54px;}
 /* skills */
 .skill-block{margin-top:38px;}
 .skill-block .k{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:14px;}
@@ -320,37 +317,66 @@ a{color:inherit;text-decoration:none;}
   </div>
 </section>
 
-<!-- HONORS -->
-<section class="section" style="padding-top:0;">
-  <div class="reveal">
-    <div class="eyebrow">竞赛与荣誉</div>
-    <h2 class="h2">赛场内外都在赢。</h2>
-  </div>
-  <div class="honor-row">
-    <div class="honor reveal"><div class="y">2024</div><strong>WUPENiCity 城市设计国际竞赛 · 二等奖（一作）</strong></div>
-    <div class="honor reveal"><div class="y">2024</div><strong>WUPENiCity 城市可持续调研报告国际竞赛 · 三等奖</strong></div>
-    <div class="honor reveal"><div class="y">2022–2026</div><strong>上海市大学生足球联盟杯赛 / 联赛冠军等</strong></div>
-    <div class="honor reveal"><div class="y">2025.8</div><strong>乡村规划建设实践 · 同期最佳营造奖</strong></div>
-  </div>
-</section>
-
 <!-- SKILLS -->
 <section class="section" style="padding-top:0;">
   <div class="reveal">
     <div class="eyebrow">技能</div>
-    <h2 class="h2">工具，是想法的延伸。</h2>
+    <h2 class="h2">叽里咕噜地学了很多技能</h2>
   </div>
   <div class="skill-block reveal">
     <div class="k">AI 应用</div>
-    <div class="chips"><span class="chip">vibe coding</span><span class="chip">Work Flow 搭建</span><span class="chip">Agent 搭建</span></div>
+    <div class="chips"><span class="chip">vibe coding</span><span class="chip">Harness Engineering</span><span class="chip">Loop Engineering（探索中）</span><span class="chip">AI 精细化生图</span><span class="chip">AI 视频创作</span></div>
   </div>
   <div class="skill-block reveal">
     <div class="k">软件</div>
-    <div class="chips"><span class="chip">Cursor</span><span class="chip">Figma</span><span class="chip">Pixso</span><span class="chip">Photoshop</span><span class="chip">Illustrator</span><span class="chip">InDesign</span><span class="chip">CAD</span><span class="chip">ArcGIS</span><span class="chip">SketchUp</span><span class="chip">Rhino</span><span class="chip">Office</span></div>
+    <div class="chips"><span class="chip">Claude Code</span><span class="chip">Cursor</span><span class="chip">Figma</span><span class="chip">Pixso</span><span class="chip">Photoshop</span><span class="chip">Illustrator</span><span class="chip">InDesign</span><span class="chip">CAD</span><span class="chip">ArcGIS</span><span class="chip">SketchUp</span><span class="chip">Rhino</span><span class="chip">Office</span></div>
   </div>
   <div class="skill-block reveal">
     <div class="k">语言</div>
     <div class="chips"><span class="chip">英语 CET-4 · 581</span><span class="chip">英语 CET-6 · 549</span></div>
+  </div>
+</section>
+
+<!-- HONORS (renamed) -->
+<section class="section" style="padding-top:0;">
+  <div class="reveal">
+    <div class="eyebrow">关于范诚昊是活人的证明</div>
+    <h2 class="h2">履历之外，也是鲜活的人。</h2>
+  </div>
+  <div class="honor-card-grid">
+    <div class="card reveal">
+      <div class="card-art">
+        <!-- 图片占位：未来替换为真实图片 background-image -->
+        <svg viewBox="0 0 400 200" width="100%" height="100%" aria-hidden="true">
+          <rect width="400" height="200" fill="#eef3f2"/>
+          <circle cx="200" cy="100" r="30" fill="none" stroke="#0E8C82" stroke-width="1.4" opacity=".35"/>
+          <circle cx="200" cy="100" r="6" fill="#0E8C82" opacity=".7"/>
+          <circle cx="200" cy="70" r="3" fill="#0E8C82" opacity=".5"/>
+          <circle cx="230" cy="100" r="3" fill="#0E8C82" opacity=".5"/>
+        </svg>
+      </div>
+      <div class="card-body">
+        <h3>多次代表同济大学参加 全国/上海市 足球比赛</h3>
+        <p>作为同济大学校园组足球队成员，多次代表学校参加全国大学生足球联赛/上海市大学生足球联盟杯赛、联赛，6次夺得上海市冠军，并在全国赛中闯入四强。</p>
+      </div>
+    </div>
+
+    <div class="card reveal">
+      <div class="card-art">
+        <!-- 图片占位：未来替换为真实图片 background-image -->
+        <svg viewBox="0 0 400 200" width="100%" height="100%" aria-hidden="true">
+          <rect width="400" height="200" fill="#eef3f2"/>
+          <circle cx="200" cy="100" r="30" fill="none" stroke="#0E8C82" stroke-width="1.4" opacity=".35"/>
+          <circle cx="200" cy="100" r="6" fill="#0E8C82" opacity=".7"/>
+          <circle cx="200" cy="70" r="3" fill="#0E8C82" opacity=".5"/>
+          <circle cx="230" cy="100" r="3" fill="#0E8C82" opacity=".5"/>
+        </svg>
+      </div>
+      <div class="card-body">
+        <h3>社会实践活动</h3>
+        <p>参与"一米高度看城市"儿童友好主题活动，从儿童视角探索城市规划改进方向；投身乡村规划建设实践（同期获最佳营造奖），结合专业知识服务基层空间营造。</p>
+      </div>
+    </div>
   </div>
 </section>
 
