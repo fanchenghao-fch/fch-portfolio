@@ -157,8 +157,8 @@ export const profileContent: Record<Lang, ProfileContent> = {
       resumeText: "下载 PDF →",
     },
     footer: {
-      copyright: "© 2026 范诚昊 · 本站由本人用 AI 全流程搭建",
-      tagline: "懂城市的 AI 产品经理",
+      copyright: "© 2026 范诚昊",
+      tagline: "",
     },
     fab: "问数字分身",
   },
