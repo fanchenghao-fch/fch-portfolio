@@ -55,11 +55,10 @@ interface ProfileContent {
 export const profileContent: Record<Lang, ProfileContent> = {
   zh: {
     hero: {
-      line1: "懂城市的",
+      line1: "小范的",
       line2: "",
-      accent: "AI 产品经理",
-      subtitle:
-        "同济城乡规划本硕，正用 AI 把城市问题变成跑得起来的产品。这个网站本身，就是我做的一个。",
+      accent: "赛博简历",
+      subtitle: "同济大学本硕～努力学习中～",
       viewWork: "查看作品",
       askAvatar: "问问我的数字分身",
     },
@@ -160,11 +159,10 @@ export const profileContent: Record<Lang, ProfileContent> = {
   },
   en: {
     hero: {
-      line1: "An AI Product Manager",
+      line1: "Xiao Fan's",
       line2: "",
-      accent: "Who Understands Cities",
-      subtitle:
-        "Tongji Urban Planning B.S. & M.S. — turning urban challenges into working AI products. This website itself is one I built.",
+      accent: "Cyber CV",
+      subtitle: "Tongji University B.S. & M.S. ~ always learning ~",
       viewWork: "View Projects",
       askAvatar: "Ask My Digital Twin",
     },
