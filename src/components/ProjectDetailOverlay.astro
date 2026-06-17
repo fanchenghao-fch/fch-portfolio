@@ -146,13 +146,13 @@ const t = {
       html += '<div class="proj-links">';
       p.links.forEach(function(lk) {
         var label = isZh ? lk.label : (lk.labelEn || lk.label);
-        html += '<a href="' + lk.url + '" class="proj-lk proj-lk-primary" target="_blank" rel="noopener">' + label + ' →</a>';
+        html += '<a href="' + lk.url + '" class="btn btn-primary" target="_blank" rel="noopener">' + label + ' →</a>';
       });
-      html += '<button class="proj-lk proj-lk-ghost" onclick="closeProject()">' + t.backToProjects + '</button>';
+      html += '<button class="btn btn-ghost" onclick="closeProject()">' + t.backToProjects + '</button>';
       html += '</div>';
     } else {
       html += '<div class="proj-links">';
-      html += '<button class="proj-lk proj-lk-ghost" onclick="closeProject()">' + t.backToProjects + '</button>';
+      html += '<button class="btn btn-ghost" onclick="closeProject()">' + t.backToProjects + '</button>';
       html += '</div>';
     }
 
@@ -409,36 +409,6 @@ const t = {
     gap: 12px;
     flex-wrap: wrap;
     margin-top: 34px;
-  }
-  .proj-lk {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    height: 46px;
-    padding: 0 22px;
-    border-radius: 980px;
-    font-size: 15px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: 0.25s;
-    text-decoration: none;
-    font-family: inherit;
-  }
-  .proj-lk-primary {
-    background: #0E8C82;
-    color: #fff;
-    border: none;
-  }
-  .proj-lk-primary:hover {
-    background: #0A6E66;
-  }
-  .proj-lk-ghost {
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    color: #1D1D1F;
-    background: transparent;
-  }
-  .proj-lk-ghost:hover {
-    background: #FBFBFD;
   }
 
   body.proj-open { overflow: hidden; }
