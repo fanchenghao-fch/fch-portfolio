@@ -151,7 +151,7 @@ const periodLabel =
     function openVideoOverlay(src, vw, vh) {
       var source = document.createElement("source");
       source.src = src;
-      source.type = "video/mp4";
+      source.type = src.endsWith(".mov") ? "video/quicktime" : "video/mp4";
       videoPlayer.appendChild(source);
       videoPlayer.load();
       if (vw && vh) {

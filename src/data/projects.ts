@@ -60,7 +60,7 @@ export const projects: Project[] = [
       {
         title: "视频演示",
         titleEn: "TODO",
-        video: "/videos/01_微信小程序功能演示.mov",
+        video: "/videos/01_微信小程序功能演示.mp4",
         videoWidth: 780,
         videoHeight: 1634,
       },
