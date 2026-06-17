@@ -254,11 +254,14 @@ const t = {
     position: relative;
     width: 100%;
     max-width: 780px;
+    max-height: calc(100vh - 96px);
     background: #fff;
     border-radius: 26px;
     overflow: hidden;
     box-shadow: 0 40px 100px rgba(0, 0, 0, 0.3);
     animation: projRise 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    display: flex;
+    flex-direction: column;
   }
   @keyframes projRise {
     from { opacity: 0; transform: translateY(30px); }
@@ -295,10 +298,22 @@ const t = {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
   }
 
   .proj-body {
-    padding: 38px 44px 44px;
+    padding: 40px 44px 48px;
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(14, 140, 130, 0.35) transparent;
+  }
+  .proj-body::-webkit-scrollbar { width: 6px; }
+  .proj-body::-webkit-scrollbar-track { background: transparent; }
+  .proj-body::-webkit-scrollbar-thumb {
+    background: rgba(14, 140, 130, 0.35);
+    border-radius: 980px;
   }
 
   .proj-tag {
@@ -315,10 +330,10 @@ const t = {
   }
 
   .proj-title {
-    font-size: clamp(26px, 4vw, 36px);
+    font-size: clamp(26px, 4vw, 34px);
     font-weight: 600;
-    letter-spacing: -0.03em;
-    line-height: 1.12;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
     margin: 18px 0 0;
     color: #1D1D1F;
   }
@@ -328,7 +343,7 @@ const t = {
     flex-wrap: wrap;
     gap: 28px;
     margin-top: 24px;
-    padding-bottom: 26px;
+    padding-bottom: 28px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   }
   .proj-meta-k {
@@ -344,18 +359,17 @@ const t = {
     font-weight: 500;
   }
 
-  .proj-block { margin-top: 32px; }
+  .proj-block { margin-top: 36px; }
   .proj-block h3 {
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
+    letter-spacing: 0.02em;
     color: #0A6E66;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
   }
   .proj-block p {
-    font-size: 16px;
-    line-height: 1.7;
+    font-size: 15px;
+    line-height: 1.75;
     color: #333;
   }
   .proj-block ul {
@@ -363,17 +377,18 @@ const t = {
     margin-top: 6px;
   }
   .proj-block li {
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1.7;
     color: #333;
     padding-left: 22px;
     position: relative;
   }
+  .proj-block li + li { margin-top: 10px; }
   .proj-block li::before {
     content: "";
     position: absolute;
     left: 2px;
-    top: 11px;
+    top: 10px;
     width: 6px;
     height: 6px;
     border-radius: 50%;
@@ -408,14 +423,15 @@ const t = {
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
-    margin-top: 34px;
+    margin-top: 36px;
   }
 
   body.proj-open { overflow: hidden; }
 
   @media (max-width: 640px) {
     .proj-overlay { padding: 20px 12px; }
-    .proj-body { padding: 30px 24px 34px; }
+    .proj-modal { max-height: calc(100vh - 40px); }
+    .proj-body { padding: 30px 24px 40px; }
     .proj-gallery { grid-template-columns: repeat(2, 1fr); }
     .proj-art { height: 180px; }
   }
