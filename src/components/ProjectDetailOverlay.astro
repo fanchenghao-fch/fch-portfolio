@@ -84,91 +84,84 @@ const t = {
   </div>
 </div>
 
-<script>
-  const PROJ_DATA = {projectsJSON};
+<pre id="proj-data" style="display:none;">{projectsJSON}</pre>
+<script is:inline>
+  var PROJ_DATA = JSON.parse(document.getElementById("proj-data").textContent);
 
-  const overlay = document.getElementById("projOverlay")!;
-  const modal = document.getElementById("projModal")!;
-  const body = document.getElementById("projBody")!;
-  const closeBtn = document.getElementById("projClose")!;
-  const lang = overlay.dataset.lang || "zh";
+  var overlay = document.getElementById("projOverlay");
+  var projBody = document.getElementById("projBody");
+  var closeBtn = document.getElementById("projClose");
+  var lang = overlay.dataset.lang || "zh";
 
-  const t = {
+  var t = {
     zh: { myRole: "我的角色", period: "时间", overview: "项目概述", myWork: "我的工作", outcome: "产出成果", backToProjects: "返回作品集" },
-    en: { myRole: "My Role", period: "Period", overview: "Overview", myWork: "My Work", outcome: "Outcome", backToProjects: "Back to Projects" },
-  }[lang]!;
+    en: { myRole: "My Role", period: "Period", overview: "Overview", myWork: "My Work", outcome: "Outcome", backToProjects: "Back to Projects" }
+  }[lang];
 
-  let currentSlug: string | null = null;
+  var currentSlug = null;
 
-  function renderProject(slug: string) {
-    const p = PROJ_DATA.find((x: any) => x.slug === slug);
+  function renderProject(slug) {
+    var p = PROJ_DATA.find(function(x) { return x.slug === slug; });
     if (!p) return;
 
-    const isZh = lang === "zh";
-    const title = isZh ? p.title : p.titleEn;
-    const role = isZh ? p.role : p.roleEn;
-    const overview = isZh ? p.detailOverview : p.detailOverviewEn;
-    const work: string[] = isZh ? p.detailWork : p.detailWorkEn;
-    const outcome = isZh ? p.detailOutcome : p.detailOutcomeEn;
+    var isZh = lang === "zh";
+    var title = isZh ? p.title : p.titleEn;
+    var role = isZh ? p.role : p.roleEn;
+    var overview = isZh ? p.detailOverview : p.detailOverviewEn;
+    var work = isZh ? p.detailWork : p.detailWorkEn;
+    var outcome = isZh ? p.detailOutcome : p.detailOutcomeEn;
 
-    let html = "";
+    var html = "";
 
-    // tags
     if (p.tags.length) {
       html += '<div>';
-      p.tags.forEach((tag: string) => { html += `<span class="proj-tag">${tag}</span>`; });
+      p.tags.forEach(function(tag) { html += '<span class="proj-tag">' + tag + '</span>'; });
       html += '</div>';
     }
 
-    // title
-    html += `<h1 class="proj-title">${title}</h1>`;
+    html += '<h1 class="proj-title">' + title + '</h1>';
 
-    // meta
     html += '<div class="proj-meta">';
-    html += `<div><div class="proj-meta-k">${t.myRole}</div><div class="proj-meta-v">${role}</div></div>`;
-    html += `<div><div class="proj-meta-k">${t.period}</div><div class="proj-meta-v">${p.period}</div></div>`;
+    html += '<div><div class="proj-meta-k">' + t.myRole + '</div><div class="proj-meta-v">' + role + '</div></div>';
+    html += '<div><div class="proj-meta-k">' + t.period + '</div><div class="proj-meta-v">' + p.period + '</div></div>';
     html += '</div>';
 
-    // overview
-    html += `<div class="proj-block"><h3>${t.overview}</h3><p>${overview}</p></div>`;
+    html += '<div class="proj-block"><h3>' + t.overview + '</h3><p>' + overview + '</p></div>';
 
-    // my work
-    html += `<div class="proj-block"><h3>${t.myWork}</h3><ul>`;
-    work.forEach((w: string) => { html += `<li>${w}</li>`; });
+    html += '<div class="proj-block"><h3>' + t.myWork + '</h3><ul>';
+    work.forEach(function(w) { html += '<li>' + w + '</li>'; });
     html += '</ul></div>';
 
-    // outcome
-    html += `<div class="proj-block"><h3>${t.outcome}</h3><p>${outcome}</p>`;
+    html += '<div class="proj-block"><h3>' + t.outcome + '</h3><p>' + outcome + '</p>';
     if (p.images && p.images.length > 0) {
       html += '<div class="proj-gallery">';
-      p.images.forEach((img: string) => {
-        html += `<div class="proj-shot"><img src="${img}" alt="" loading="lazy" /></div>`;
+      p.images.forEach(function(img) {
+        html += '<div class="proj-shot"><img src="' + img + '" alt="" loading="lazy"></div>';
       });
       html += '</div>';
     }
     html += '</div>';
 
-    // links
     if (p.links && p.links.length > 0) {
       html += '<div class="proj-links">';
-      p.links.forEach((lk: any) => {
-        const label = isZh ? lk.label : (lk.labelEn || lk.label);
-        html += `<a href="${lk.url}" class="proj-lk proj-lk-primary" target="_blank" rel="noopener">${label} →</a>`;
+      p.links.forEach(function(lk) {
+        var label = isZh ? lk.label : (lk.labelEn || lk.label);
+        html += '<a href="' + lk.url + '" class="proj-lk proj-lk-primary" target="_blank" rel="noopener">' + label + ' →</a>';
       });
-      html += `<button class="proj-lk proj-lk-ghost" onclick="closeProject()">${t.backToProjects}</button>`;
+      html += '<button class="proj-lk proj-lk-ghost" onclick="closeProject()">' + t.backToProjects + '</button>';
       html += '</div>';
     } else {
       html += '<div class="proj-links">';
-      html += `<button class="proj-lk proj-lk-ghost" onclick="closeProject()">${t.backToProjects}</button>`;
+      html += '<button class="proj-lk proj-lk-ghost" onclick="closeProject()">' + t.backToProjects + '</button>';
       html += '</div>';
     }
 
-    body.innerHTML = html;
-    body.scrollTop = 0;
+    projBody.innerHTML = html;
+    projBody.scrollTop = 0;
     currentSlug = slug;
   }
 
-  function openProject(slug: string) {
+  function openProject(slug) {
     if (overlay.classList.contains("open") && currentSlug === slug) return;
 
     renderProject(slug);
@@ -176,8 +169,7 @@ const t = {
     document.body.classList.add("proj-open");
     overlay.setAttribute("aria-hidden", "false");
 
-    // URL sync
-    const url = `/${lang === "en" ? "en/" : ""}project/${slug}`;
+    var url = "/" + (lang === "en" ? "en/" : "") + "project/" + slug;
     history.pushState({ projectOverlay: slug }, "", url);
   }
 
@@ -187,42 +179,34 @@ const t = {
     overlay.setAttribute("aria-hidden", "true");
     currentSlug = null;
 
-    // URL sync — replace state so back button doesn't re-open
-    const homeUrl = lang === "en" ? "/en/home" : "/home";
-    history.replaceState(null, "", `${homeUrl}#projects`);
+    var homeUrl = lang === "en" ? "/en/home" : "/home";
+    history.replaceState(null, "", homeUrl + "#projects");
   }
 
-  // Expose globally
-  (window as any).openProject = openProject;
-  (window as any).closeProject = closeProject;
+  window.openProject = openProject;
+  window.closeProject = closeProject;
 
-  // ── Close triggers ──
   closeBtn.addEventListener("click", closeProject);
 
-  // Click backdrop (not modal)
-  overlay.addEventListener("click", (e) => {
+  overlay.addEventListener("click", function(e) {
     if (e.target === overlay) closeProject();
   });
 
-  // ESC key
-  document.addEventListener("keydown", (e) => {
+  document.addEventListener("keydown", function(e) {
     if (e.key === "Escape" && overlay.classList.contains("open")) {
       closeProject();
     }
   });
 
-  // ── Browser back/forward ──
-  window.addEventListener("popstate", (e) => {
-    const state = e.state as { projectOverlay?: string } | null;
-    if (state?.projectOverlay) {
-      // forward: re-open overlay
+  window.addEventListener("popstate", function(e) {
+    var state = e.state;
+    if (state && state.projectOverlay) {
       renderProject(state.projectOverlay);
       overlay.classList.add("open");
       document.body.classList.add("proj-open");
       overlay.setAttribute("aria-hidden", "false");
       currentSlug = state.projectOverlay;
     } else if (overlay.classList.contains("open")) {
-      // back: close overlay without touching history
       overlay.classList.remove("open");
       document.body.classList.remove("proj-open");
       overlay.setAttribute("aria-hidden", "true");
@@ -230,14 +214,12 @@ const t = {
     }
   });
 
-  // ── Intercept project card clicks ──
-  document.addEventListener("click", (e) => {
-    const target = (e.target as HTMLElement).closest(".hcard") as HTMLAnchorElement | null;
-    if (!target) return;
-    // Only intercept if it links to a project detail page
-    const href = target.getAttribute("href");
+  document.addEventListener("click", function(e) {
+    var card = e.target.closest(".hcard");
+    if (!card) return;
+    var href = card.getAttribute("href");
     if (!href) return;
-    const match = href.match(/\/project\/([^/?#]+)/);
+    var match = href.match(/\/project\/([^/?#]+)/);
     if (!match) return;
 
     e.preventDefault();
