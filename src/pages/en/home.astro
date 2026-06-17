@@ -61,10 +61,24 @@ const t = profileContent.en;
       <div class="eyebrow">Projects</div>
       <h2 class="h2">8 projects,<br />spanning AI and cities.</h2>
     </div>
-    <div class="proj-grid">
-      {sortedProjects.map((project) => (
-        <ProjectCard project={project} lang="en" />
-      ))}
+    <div class="hwrap reveal">
+      <div class="hhint">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#6E6E73" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>
+        Swipe or drag to browse all 8 projects
+      </div>
+      <div class="htrack" id="htrack">
+        {sortedProjects.map((project, i) => (
+          <ProjectCard project={project} lang="en" index={i + 1} />
+        ))}
+      </div>
+      <div class="hnav">
+        <button class="hbtn" id="hprev" aria-label="Previous">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"/></svg>
+        </button>
+        <button class="hbtn" id="hnext" aria-label="Next">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>
+        </button>
+      </div>
     </div>
   </section>
 
@@ -86,6 +100,34 @@ const t = profileContent.en;
     { threshold: 0.12 },
   );
   document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+</script>
+<script>
+  (function () {
+    var tr = document.getElementById("htrack");
+    if (!tr) return;
+    var prev = document.getElementById("hprev"),
+      next = document.getElementById("hnext");
+    function step() {
+      var c = tr.querySelector(".hcard");
+      return c ? c.getBoundingClientRect().width + 20 : 340;
+    }
+    function upd() {
+      if (!prev || !next) return;
+      prev.disabled = tr.scrollLeft < 8;
+      next.disabled = tr.scrollLeft + tr.clientWidth >= tr.scrollWidth - 8;
+    }
+    if (prev)
+      prev.addEventListener("click", function () {
+        tr.scrollBy({ left: -step(), behavior: "smooth" });
+      });
+    if (next)
+      next.addEventListener("click", function () {
+        tr.scrollBy({ left: step(), behavior: "smooth" });
+      });
+    tr.addEventListener("scroll", upd);
+    window.addEventListener("resize", upd);
+    upd();
+  })();
 </script>
 
 <style>
@@ -135,15 +177,78 @@ const t = profileContent.en;
       margin: 0 auto;
     }
   }
-  .proj-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    margin-top: 54px;
+  .hwrap {
+    position: relative;
+    margin-top: 40px;
   }
-  @media (max-width: 720px) {
-    .proj-grid {
-      grid-template-columns: 1fr;
+  .hhint {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 18px;
+  }
+  .hhint svg {
+    width: 17px;
+    height: 17px;
+  }
+  .htrack {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-padding-left: 22px;
+    padding: 6px 22px 24px;
+    margin: 0 -22px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(14, 140, 130, 0.4) transparent;
+  }
+  .htrack::-webkit-scrollbar {
+    height: 8px;
+  }
+  .htrack::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .htrack::-webkit-scrollbar-thumb {
+    background: rgba(14, 140, 130, 0.35);
+    border-radius: 980px;
+  }
+  .hnav {
+    display: flex;
+    gap: 10px;
+    margin-top: 18px;
+  }
+  .hbtn {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    border: 1px solid var(--line);
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: 0.2s;
+  }
+  .hbtn:hover:not(:disabled) {
+    background: var(--paper);
+    border-color: rgba(14, 140, 130, 0.4);
+  }
+  .hbtn svg {
+    width: 18px;
+    height: 18px;
+  }
+  .hbtn:disabled {
+    opacity: 0.35;
+    cursor: default;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hcard,
+    .hcard-art svg,
+    .hcard-art::after {
+      transition: none;
     }
   }
 </style>
