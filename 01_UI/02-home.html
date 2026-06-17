@@ -687,7 +687,7 @@ function projRender(slug){
         sec.items.forEach(function(item){h+='<li>'+item+'</li>';});
         h+='</ul></div>';
       }
-      if(sec.url){h+='<div class="proj-block"><h3>'+sec.title+'</h3><p><a href="'+sec.url+'" style="color:var(--teal);word-break:break-all;">'+sec.url+'</a></p></div>';}if(sec.video){h+='<div class="proj-block"><h3>'+sec.title+'</h3><button class="btn btn-primary" onclick="openVideoOverlay(\''+sec.video+'\', '+(sec.videoWidth||0)+', '+(sec.videoHeight||0)+')">▶ 播放视频</button></div>';}
+      if(sec.url){h+='<div class="proj-block"><h3>'+sec.title+'</h3><p><a href="'+sec.url+'" style="color:var(--teal);word-break:break-all;">'+sec.url+'</a></p></div>';}if(sec.video){h+='<div class="proj-block"><h3>'+sec.title+'</h3><button class="btn btn-primary btn-video" data-video="'+sec.video+'" data-vw="'+(sec.videoWidth||0)+'" data-vh="'+(sec.videoHeight||0)+'">▶ 播放视频</button></div>';}
     });
   } else {
     h+='<div class="proj-block"><h3>项目概述</h3><p>'+p.detailOverview+'</p></div>';
@@ -776,6 +776,14 @@ document.addEventListener('click',function(e){
   var href=card.getAttribute('href');if(!href)return;
   var m=href.match(/\/project\/([^/?#]+)/);if(!m)return;
   e.preventDefault();projOpen(m[1]);
+});
+// Video button delegation
+document.addEventListener('click',function(e){
+  var btn=e.target.closest('.btn-video');if(!btn)return;
+  var src=btn.dataset.video;
+  var vw=parseInt(btn.dataset.vw)||0;
+  var vh=parseInt(btn.dataset.vh)||0;
+  openVideoOverlay(src,vw,vh);
 });
 </script>
 </body>

@@ -156,7 +156,7 @@ const t = {
         }
         if (sec.video) {
           html += '<div class="proj-block"><h3>' + secTitle + '</h3>';
-          html += '<button class="btn btn-primary" onclick="openVideoOverlay(\'' + sec.video + '\', ' + (sec.videoWidth || 0) + ', ' + (sec.videoHeight || 0) + ')">▶ 播放视频</button>';
+          html += '<button class="btn btn-primary btn-video" data-video="' + sec.video + '" data-vw="' + (sec.videoWidth || 0) + '" data-vh="' + (sec.videoHeight || 0) + '">▶ 播放视频</button>';
           html += '</div>';
         }
       });
@@ -308,6 +308,16 @@ const t = {
 
     e.preventDefault();
     openProject(match[1]);
+  });
+
+  // Video button delegation (matches .btn-video rendered by renderProject)
+  document.addEventListener("click", function(e) {
+    var btn = e.target.closest(".btn-video");
+    if (!btn) return;
+    var src = btn.dataset.video;
+    var vw = parseInt(btn.dataset.vw) || 0;
+    var vh = parseInt(btn.dataset.vh) || 0;
+    openVideoOverlay(src, vw, vh);
   });
 </script>
 
