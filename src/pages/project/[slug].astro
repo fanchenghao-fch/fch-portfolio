@@ -83,6 +83,14 @@ const periodLabel =
                     <p><a href={sec.url} style="color:var(--teal);word-break:break-all;">{sec.url}</a></p>
                   </div>
                 )}
+                {sec.video && (
+                  <div class="block">
+                    <h3>{lang === "zh" ? sec.title : (sec.titleEn || sec.title)}</h3>
+                    <button class="btn-video" data-video={sec.video} data-vw={sec.videoWidth} data-vh={sec.videoHeight}>
+                      ▶ 播放视频
+                    </button>
+                  </div>
+                )}
               </>
             ))
           ) : (
@@ -125,6 +133,69 @@ const periodLabel =
       </div>
     </div>
   </div>
+
+  <!-- video overlay (z-index above project modal) -->
+  <div class="video-overlay" id="videoOverlay" aria-hidden="true">
+    <div class="video-modal" id="videoModal">
+      <button class="video-close" id="videoClose" aria-label="关闭视频">&times;</button>
+      <video id="videoPlayer" controls playsinline></video>
+    </div>
+  </div>
+
+<script>
+  (function() {
+    var videoOverlay = document.getElementById("videoOverlay");
+    var videoPlayer = document.getElementById("videoPlayer");
+    var videoCloseBtn = document.getElementById("videoClose");
+
+    function openVideoOverlay(src, vw, vh) {
+      var source = document.createElement("source");
+      source.src = src;
+      source.type = "video/mp4";
+      videoPlayer.appendChild(source);
+      videoPlayer.load();
+      if (vw && vh) {
+        videoPlayer.style.aspectRatio = vw + "/" + vh;
+        videoPlayer.style.maxHeight = Math.min(vh, window.innerHeight * 0.85) + "px";
+      }
+      videoOverlay.classList.add("open");
+      videoOverlay.setAttribute("aria-hidden", "false");
+      document.body.classList.add("video-open");
+      videoPlayer.play();
+    }
+
+    function closeVideoOverlay() {
+      videoPlayer.pause();
+      videoOverlay.classList.remove("open");
+      videoOverlay.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("video-open");
+    }
+
+    videoCloseBtn.addEventListener("click", closeVideoOverlay);
+    videoOverlay.addEventListener("click", function(e) {
+      if (e.target === videoOverlay) closeVideoOverlay();
+    });
+    document.addEventListener("keydown", function(e) {
+      if (e.key === "Escape" && videoOverlay.classList.contains("open")) {
+        closeVideoOverlay();
+      }
+    });
+
+    // Wire up video buttons
+    document.addEventListener("click", function(e) {
+      var btn = e.target.closest(".btn-video");
+      if (!btn) return;
+      var src = btn.dataset.video;
+      var vw = parseInt(btn.dataset.vw) || 0;
+      var vh = parseInt(btn.dataset.vh) || 0;
+      openVideoOverlay(src, vw, vh);
+    });
+
+    window.openVideoOverlay = openVideoOverlay;
+    window.closeVideoOverlay = closeVideoOverlay;
+  })();
+</script>
+
 </BaseLayout>
 
 <style>
@@ -303,6 +374,88 @@ const periodLabel =
   .lk-ghost:hover {
     background: var(--paper);
   }
+
+  /* video play button */
+  .btn-video {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    height: 46px;
+    padding: 0 22px;
+    border-radius: 980px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: 0.25s;
+    background: var(--teal);
+    color: #fff;
+    border: none;
+  }
+  .btn-video:hover {
+    background: var(--teal-deep);
+  }
+
+  /* ── video overlay ── */
+  .video-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 110;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    background: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .video-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .video-modal {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    animation: rise 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .video-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    z-index: 5;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: #fff;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+  }
+  .video-close:hover {
+    background: rgba(255, 255, 255, 0.35);
+  }
+
+  .video-modal video {
+    border-radius: 14px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+    max-width: 90vw;
+    max-height: 85vh;
+    background: #000;
+  }
+
   @media (max-width: 640px) {
     .m-body {
       padding: 30px 24px 34px;
@@ -313,5 +466,7 @@ const periodLabel =
     .m-art {
       height: 180px;
     }
+    .video-overlay { padding: 16px; }
+    .video-close { top: -36px; }
   }
 </style>

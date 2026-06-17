@@ -87,6 +87,14 @@ const t = {
   </div>
 </div>
 
+<!-- video overlay (z-index above proj-overlay) -->
+<div class="video-overlay" id="videoOverlay" aria-hidden="true">
+  <div class="video-modal" id="videoModal">
+    <button class="video-close" id="videoClose" aria-label="关闭视频">&times;</button>
+    <video id="videoPlayer" controls playsinline></video>
+  </div>
+</div>
+
 <pre id="proj-data" style="display:none;">{projectsJSON}</pre>
 <script is:inline>
   var PROJ_DATA = JSON.parse(document.getElementById("proj-data").textContent);
@@ -144,6 +152,11 @@ const t = {
         if (sec.url) {
           html += '<div class="proj-block"><h3>' + secTitle + '</h3>';
           html += '<a href="' + sec.url + '" class="btn btn-primary" target="_blank" rel="noopener">' + sec.url + ' →</a>';
+          html += '</div>';
+        }
+        if (sec.video) {
+          html += '<div class="proj-block"><h3>' + secTitle + '</h3>';
+          html += '<button class="btn btn-primary" onclick="openVideoOverlay(\'' + sec.video + '\', ' + (sec.videoWidth || 0) + ', ' + (sec.videoHeight || 0) + ')">▶ 播放视频</button>';
           html += '</div>';
         }
       });
@@ -213,6 +226,45 @@ const t = {
 
   window.openProject = openProject;
   window.closeProject = closeProject;
+
+  // ── video overlay ──
+  var videoOverlay = document.getElementById("videoOverlay");
+  var videoPlayer = document.getElementById("videoPlayer");
+  var videoCloseBtn = document.getElementById("videoClose");
+
+  function openVideoOverlay(src, vw, vh) {
+    videoPlayer.querySelector("source") && videoPlayer.querySelector("source").remove();
+    var source = document.createElement("source");
+    source.src = src;
+    source.type = "video/mp4";
+    videoPlayer.appendChild(source);
+    videoPlayer.load();
+    videoPlayer.style.aspectRatio = vw && vh ? vw + "/" + vh : "auto";
+    videoPlayer.style.maxHeight = vh ? Math.min(vh, window.innerHeight * 0.85) + "px" : "85vh";
+    videoOverlay.classList.add("open");
+    videoOverlay.setAttribute("aria-hidden", "false");
+    document.body.classList.add("video-open");
+    videoPlayer.play();
+  }
+
+  function closeVideoOverlay() {
+    videoPlayer.pause();
+    videoOverlay.classList.remove("open");
+    videoOverlay.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("video-open");
+  }
+
+  videoCloseBtn.addEventListener("click", closeVideoOverlay);
+
+  videoOverlay.addEventListener("click", function(e) {
+    if (e.target === videoOverlay) closeVideoOverlay();
+  });
+
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && videoOverlay.classList.contains("open")) {
+      closeVideoOverlay();
+    }
+  });
 
   closeBtn.addEventListener("click", closeProject);
 
@@ -331,14 +383,78 @@ const t = {
   }
 
   body.proj-open { overflow: hidden; }
+  body.video-open { overflow: hidden; }
+
+  /* ── video overlay ── */
+  .video-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 110;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px;
+    background: rgba(0, 0, 0, 0.78);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .video-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .video-modal {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    animation: projRise 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .video-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    z-index: 5;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: #fff;
+    font-size: 22px;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+  }
+  .video-close:hover {
+    background: rgba(255, 255, 255, 0.35);
+  }
+
+  .video-modal video {
+    border-radius: 14px;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5);
+    max-width: 90vw;
+    max-height: 85vh;
+    background: #000;
+  }
 
   @media (max-width: 640px) {
     .proj-overlay { padding: 20px 12px; }
     .proj-modal { max-height: calc(100vh - 40px); }
     .proj-art { height: 180px; }
+    .video-overlay { padding: 16px; }
+    .video-close { top: -36px; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .proj-overlay, .proj-modal {
+    .proj-overlay, .proj-modal, .video-overlay, .video-modal {
       transition: none;
       animation: none;
     }

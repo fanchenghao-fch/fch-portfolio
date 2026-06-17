@@ -206,8 +206,8 @@ body.rag-open{overflow:hidden;}
 .proj-shot{aspect-ratio:4/3;background:#eef3f2;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#a9b8b5;font-size:12px;border:1px solid var(--line);overflow:hidden;}
 .proj-shot img{width:100%;height:100%;object-fit:cover;}
 .proj-links{display:flex;gap:12px;flex-wrap:wrap;margin-top:36px;}
-body.proj-open{overflow:hidden;}
-@media(max-width:640px){.proj-overlay{padding:20px 12px;}.proj-modal{max-height:calc(100vh - 40px);}.proj-body{padding:30px 24px 40px;}.proj-gallery{grid-template-columns:repeat(2,1fr);}.proj-art{height:180px;}}
+body.proj-open{overflow:hidden;}body.video-open{overflow:hidden;}.btn-video{display:inline-flex;align-items:center;gap:8px;height:46px;padding:0 22px;border-radius:980px;font-size:15px;font-weight:500;cursor:pointer;transition:0.25s;background:var(--teal);color:#fff;border:none;}.btn-video:hover{background:var(--teal-deep);}.video-overlay{position:fixed;inset:0;z-index:110;display:flex;align-items:center;justify-content:center;padding:32px;background:rgba(0,0,0,0.78);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);opacity:0;pointer-events:none;transition:opacity 0.3s ease;}.video-overlay.open{opacity:1;pointer-events:auto;}.video-modal{position:relative;max-width:90vw;max-height:90vh;display:flex;flex-direction:column;animation:projRise 0.4s cubic-bezier(0.16,1,0.3,1);}.video-close{position:absolute;top:-40px;right:0;z-index:5;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.2);border:none;color:#fff;font-size:22px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:0.2s;}.video-close:hover{background:rgba(255,255,255,0.35);}.video-modal video{border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,0.5);max-width:90vw;max-height:85vh;background:#000;}
+@media(max-width:640px){.proj-overlay{padding:20px 12px;}.proj-modal{max-height:calc(100vh - 40px);}.proj-body{padding:30px 24px 40px;}.proj-gallery{grid-template-columns:repeat(2,1fr);}.proj-art{height:180px;}.video-overlay{padding:16px;}.video-close{top:-36px;}}
 @media(prefers-reduced-motion:reduce){.proj-overlay,.proj-modal{transition:none;animation:none;}}
 </style>
 </head>
@@ -645,10 +645,19 @@ document.addEventListener('keydown',function(e){
   if(e.key==='Escape'&&document.getElementById('ragOverlay').classList.contains('open')){closeRAG();}
 });
 </script>
+
+<!-- Video overlay -->
+<div class="video-overlay" id="videoOverlay" aria-hidden="true">
+  <div class="video-modal" id="videoModal">
+    <button class="video-close" id="videoClose" aria-label="关闭视频">&times;</button>
+    <video id="videoPlayer" controls playsinline></video>
+  </div>
+</div>
+
 <!-- Project detail overlay logic -->
 <script>
 const PROJ_DATA = [
-  {slug:"ai-learn-miniapp",title:"AI 闯关学习微信小程序-阿拉灯神丁",titleEn:"TODO",role:"独立开发",roleEn:"TODO",period:"30 h",periodLabel:"耗时",periodLabelEn:"TODO",tags:["AI 产品","微信小程序"],detailOverview:"TODO",detailOverviewEn:"TODO",detailWork:["TODO"],detailWorkEn:["TODO"],detailOutcome:"TODO",detailOutcomeEn:"TODO",detailSections:[{title:"项目背景",titleEn:"TODO",text:"一款面向全龄学习人群的 AI 驱动闯关学习小程序。传统刷题 App 依赖预制题库，内容覆盖有限且更新滞后。本项目利用大语言模型 + 联网搜索实现“输入即学”——用户输入任意知识点，AI 实时生成个性化题目并给出学习诊断报告，配合游戏化激励系统提升学习动力。",textEn:"TODO"},{title:"功能介绍",titleEn:"TODO",items:["AI 智能出题：用户输入任意知识点（如“量子计算”），AI 自动生成选择题/判断题，支持难度选择和题量配置","联网知识增强：三段式出题流水线（联网搜索 → AI 生成 → 领域校验），弥补大模型训练数据时效缺口，搜索失败静默降级不影响核心流程","游戏化答题闯关：生命值机制 + 连击系统 + 单题计时，答题后即时反馈 AI 知识点讲解","AI 学习诊断报告：掌握度雷达图 + 知识要点总结 + 个性化学习建议 + 错题回顾","用户成长体系：金币/经验/5 级等级 + 每日打卡 + 连续签到天数统计","错题管理系统：自动收录错题、按领域分组、支持重新作答和标记已掌握"],itemsEn:["TODO"]},{title:"技术选型",titleEn:"TODO",items:["前端：Taro 4.2 + React 18 + TypeScript + Zustand，适配微信小程序原生能力","后端：FastAPI (Python) + LangChain + SQLAlchemy 2.0 异步 ORM + MySQL 8.0","AI：DeepSeek V4 Pro（出题与分析）+ DeepSeek V4 Flash（领域校验）+ Tavily Search API（联网知识搜索）","认证：微信小程序 code2session + JWT 双鉴权模式（强制/可选认证）","部署：Docker Compose 容器化编排，后端 TDD 测试覆盖 91+ 用例"],itemsEn:["TODO"]},{title:"GitHub 链接",titleEn:"TODO",url:"https://github.com/fanchenghao-fch/FAN_AI_LEARN"}],images:[],links:[]},
+  {slug:"ai-learn-miniapp",title:"AI 闯关学习微信小程序-阿拉灯神丁",titleEn:"TODO",role:"独立开发",roleEn:"TODO",period:"30 h",periodLabel:"耗时",periodLabelEn:"TODO",tags:["AI 产品","微信小程序"],detailOverview:"TODO",detailOverviewEn:"TODO",detailWork:["TODO"],detailWorkEn:["TODO"],detailOutcome:"TODO",detailOutcomeEn:"TODO",detailSections:[{title:"项目背景",titleEn:"TODO",text:"一款面向全龄学习人群的 AI 驱动闯关学习小程序。传统刷题 App 依赖预制题库，内容覆盖有限且更新滞后。本项目利用大语言模型 + 联网搜索实现“输入即学”——用户输入任意知识点，AI 实时生成个性化题目并给出学习诊断报告，配合游戏化激励系统提升学习动力。",textEn:"TODO"},{title:"功能介绍",titleEn:"TODO",items:["AI 智能出题：用户输入任意知识点（如“量子计算”），AI 自动生成选择题/判断题，支持难度选择和题量配置","联网知识增强：三段式出题流水线（联网搜索 → AI 生成 → 领域校验），弥补大模型训练数据时效缺口，搜索失败静默降级不影响核心流程","游戏化答题闯关：生命值机制 + 连击系统 + 单题计时，答题后即时反馈 AI 知识点讲解","AI 学习诊断报告：掌握度雷达图 + 知识要点总结 + 个性化学习建议 + 错题回顾","用户成长体系：金币/经验/5 级等级 + 每日打卡 + 连续签到天数统计","错题管理系统：自动收录错题、按领域分组、支持重新作答和标记已掌握"],itemsEn:["TODO"]},{title:"技术选型",titleEn:"TODO",items:["前端：Taro 4.2 + React 18 + TypeScript + Zustand，适配微信小程序原生能力","后端：FastAPI (Python) + LangChain + SQLAlchemy 2.0 异步 ORM + MySQL 8.0","AI：DeepSeek V4 Pro（出题与分析）+ DeepSeek V4 Flash（领域校验）+ Tavily Search API（联网知识搜索）","认证：微信小程序 code2session + JWT 双鉴权模式（强制/可选认证）","部署：Docker Compose 容器化编排，后端 TDD 测试覆盖 91+ 用例"],itemsEn:["TODO"]},{title:"GitHub 链接",titleEn:"TODO",url:"https://github.com/fanchenghao-fch/FAN_AI_LEARN"},{title:"视频演示",titleEn:"TODO",video:"/videos/01_微信小程序功能演示.mov",videoWidth:780,videoHeight:1636}],images:[],links:[]},
   {slug:"ai-hot-monitor",title:"AI 热点监控 & 定时推送工具",titleEn:"AI Trend Monitor & Scheduled Push Tool",role:"全栈开发",roleEn:"Full-stack Developer",period:"2026.1 – 2026.3",tags:["AI 产品","工具"],detailOverview:"构建了一套自动化 AI 热点监控系统：定时抓取全球 AI 动态（大模型发布、技术突破、产品更新等），整理关键变化点，通过多种渠道推送给用户。响应式 Web 界面 + Agent Skills 驱动。",detailOverviewEn:"An automated AI trend monitoring system: periodically fetches global AI news, distills key changes, and pushes to users via multiple channels. Driven by responsive web UI + Agent Skills.",detailWork:["设计并实现多源爬取架构（公众号、Twitter、GitHub、官网）","搭建 Agent Skills 驱动的智能摘要与分级推送逻辑","响应式 Web 前端 + 定时任务调度"],detailWorkEn:["Designed multi-source crawling architecture","Built Agent Skills-driven intelligent summarization and tiered push logic","Responsive web frontend + scheduled task orchestration"],detailOutcome:"已稳定运行，日均抓取 50+ 条 AI 动态，智能筛选后推送 5-8 条高质量摘要。",detailOutcomeEn:"Running stably, capturing 50+ AI news items daily, pushing 5-8 high-quality summaries after intelligent filtering.",images:[],links:[{label:"查看 Demo",url:"#",labelEn:"View Demo"}]},
   {slug:"workflow-agent",title:"可研 Work Flow & 项目谋划 Agent",titleEn:"Feasibility Study Work Flow & Project Planning Agent",role:"AI 工作流搭建",roleEn:"AI Workflow Builder",period:"2025.9 – 2026.2",tags:["AI 工作流","Agent"],detailOverview:"在同济咨询实习期间，将可研编制（10万+字/份）和项目谋划的复杂流程，沉淀为可复用的 Work Flow 与 Agent。同时编写策划生图指南，帮助团队用 AI 提升产出质量与效率。",detailOverviewEn:"During internship at Tongji Consulting, codified complex feasibility study processes and project planning into reusable Work Flows and Agents. Authored illustrated planning guides to help teams leverage AI for quality and efficiency.",detailWork:["拆解可研编制流程，抽象为模块化 Work Flow","搭建项目谋划 Agent，自动化生成谋划框架与要点","编写策划生图指南，培训团队用 AI 辅助策划"],detailWorkEn:["Deconstructed feasibility study processes into modular Work Flows","Built a Project Planning Agent that auto-generates planning frameworks","Authored illustrated planning guides, trained team on AI-assisted planning"],detailOutcome:"将单份可研编制时间缩短约 40%，项目谋划前期框架可自动生成，团队 AI 工具使用率大幅提升。",detailOutcomeEn:"Reduced per-report feasibility study time by ~40%, auto-generated planning frameworks, significantly improved team AI tool adoption.",images:[],links:[]},
   {slug:"wuwei-commercial",title:"无为市商业街区业态策划",titleEn:"Wuwei City Commercial District Format Planning",role:"策划 + 数据分析",roleEn:"Planning + Data Analysis",period:"2025.6 – 2025.10",tags:["产业","策划"],detailOverview:"结合国家政策导向、无为市资源禀赋与长三角市场动向，独立完成了 5 万+字的商业街区业态策划报告及汇报 PPT。涵盖业态定位、空间布局、招商策略与运营建议。",detailOverviewEn:"Integrated national policy direction, Wuwei's resource endowments, and Yangtze River Delta market trends to independently complete a 50k+ word commercial district format planning report and presentation.",detailWork:["多源数据收集与分析（政策、市场、竞品）","业态定位与空间布局方案设计","独立撰写 5 万+字策划报告及汇报 PPT"],detailWorkEn:["Multi-source data collection and analysis","Format positioning and spatial layout design","Independently authored 50k+ word planning report and presentation"],detailOutcome:"报告已交付甲方，业态方案被部分采纳进入后续深化阶段。",detailOutcomeEn:"Report delivered to client; format proposals partially adopted for further development.",images:[],links:[]},
@@ -678,7 +687,7 @@ function projRender(slug){
         sec.items.forEach(function(item){h+='<li>'+item+'</li>';});
         h+='</ul></div>';
       }
-      if(sec.url){h+='<div class="proj-block"><h3>'+sec.title+'</h3><p><a href="'+sec.url+'" style="color:var(--teal);word-break:break-all;">'+sec.url+'</a></p></div>';}
+      if(sec.url){h+='<div class="proj-block"><h3>'+sec.title+'</h3><p><a href="'+sec.url+'" style="color:var(--teal);word-break:break-all;">'+sec.url+'</a></p></div>';}if(sec.video){h+='<div class="proj-block"><h3>'+sec.title+'</h3><button class="btn btn-primary" onclick="openVideoOverlay(\''+sec.video+'\', '+(sec.videoWidth||0)+', '+(sec.videoHeight||0)+')">▶ 播放视频</button></div>';}
     });
   } else {
     h+='<div class="proj-block"><h3>项目概述</h3><p>'+p.detailOverview+'</p></div>';
@@ -708,6 +717,39 @@ function projClose(){
   projOverlay.setAttribute('aria-hidden','true');projCurrentSlug=null;
   history.replaceState(null,'','/home#projects');
 }
+
+// ── video overlay ──
+const videoOverlay=document.getElementById('videoOverlay');
+const videoPlayer=document.getElementById('videoPlayer');
+const videoCloseBtn=document.getElementById('videoClose');
+
+function openVideoOverlay(src,vw,vh){
+  const s=document.createElement('source');
+  s.src=src;s.type='video/mp4';
+  videoPlayer.appendChild(s);videoPlayer.load();
+  if(vw&&vh){
+    videoPlayer.style.aspectRatio=vw+'/'+vh;
+    videoPlayer.style.maxHeight=Math.min(vh,window.innerHeight*0.85)+'px';
+  }
+  videoOverlay.classList.add('open');
+  videoOverlay.setAttribute('aria-hidden','false');
+  document.body.classList.add('video-open');
+  videoPlayer.play();
+}
+
+function closeVideoOverlay(){
+  videoPlayer.pause();
+  videoOverlay.classList.remove('open');
+  videoOverlay.setAttribute('aria-hidden','true');
+  document.body.classList.remove('video-open');
+}
+
+window.openVideoOverlay=openVideoOverlay;
+window.closeVideoOverlay=closeVideoOverlay;
+
+videoCloseBtn.addEventListener('click',closeVideoOverlay);
+videoOverlay.addEventListener('click',function(e){if(e.target===videoOverlay)closeVideoOverlay();});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&videoOverlay.classList.contains('open'))closeVideoOverlay();});
 
 document.getElementById('projClose').addEventListener('click',projClose);
 projOverlay.addEventListener('click',function(e){if(e.target===projOverlay)projClose();});

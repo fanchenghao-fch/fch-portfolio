@@ -57,6 +57,13 @@ export const projects: Project[] = [
         titleEn: "TODO",
         url: "https://github.com/fanchenghao-fch/FAN_AI_LEARN",
       },
+      {
+        title: "视频演示",
+        titleEn: "TODO",
+        video: "/videos/01_微信小程序功能演示.mov",
+        videoWidth: 780,
+        videoHeight: 1634,
+      },
     ],
     images: [],
     links: [],

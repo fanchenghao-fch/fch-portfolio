@@ -7,6 +7,9 @@ export interface DetailSection {
   items?: string[];
   itemsEn?: string[];
   url?: string;
+  video?: string;
+  videoWidth?: number;
+  videoHeight?: number;
 }
 
 // ── Project (serves both display + RAG corpus) ──
