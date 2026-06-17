@@ -112,11 +112,13 @@ export const profileContent: Record<Lang, ProfileContent> = {
         title: "多次代表同济大学参加 全国 / 上海市 足球比赛",
         description:
           "作为同济大学校园组足球队成员，多次代表学校参加全国大学生足球联赛/上海市大学生足球联盟杯赛、联赛，6次夺得上海市冠军，并在全国赛中闯入四强。",
+        imagePlaceholder: "/Football.jpg",
       },
       {
         title: "积极参与社会实践活动",
         description:
           `参与"一米高度看城市"儿童友好主题活动，从儿童视角探索城市规划改进方向；投身乡村规划建设实践（同期获最佳营造奖），结合专业知识服务基层空间营造。`,
+        imagePlaceholder: "/Child.jpg",
       },
     ],
     skills: [

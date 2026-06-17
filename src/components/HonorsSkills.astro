@@ -31,17 +31,18 @@ const { honors, skills } = profileContent[lang];
   <div class="honor-card-grid">
     {honors.map((h) => (
       <div class="card reveal">
-        <div
-          class="card-art"
-          style={h.imagePlaceholder ? `background-image: url(${h.imagePlaceholder}); background-size: cover; background-position: center;` : ""}
-        >
-          <svg viewBox="0 0 400 200" width="100%" height="100%" aria-hidden="true">
-            <rect width="400" height="200" fill="#eef3f2"/>
-            <circle cx="200" cy="100" r="30" fill="none" stroke="#0E8C82" stroke-width="1.4" opacity=".35"/>
-            <circle cx="200" cy="100" r="6" fill="#0E8C82" opacity=".7"/>
-            <circle cx="200" cy="70" r="3" fill="#0E8C82" opacity=".5"/>
-            <circle cx="230" cy="100" r="3" fill="#0E8C82" opacity=".5"/>
-          </svg>
+        <div class="card-art">
+          {h.imagePlaceholder ? (
+            <img src={h.imagePlaceholder} alt={h.title} />
+          ) : (
+            <svg viewBox="0 0 400 200" width="100%" height="100%" aria-hidden="true">
+              <rect width="400" height="200" fill="#eef3f2"/>
+              <circle cx="200" cy="100" r="30" fill="none" stroke="#0E8C82" stroke-width="1.4" opacity=".35"/>
+              <circle cx="200" cy="100" r="6" fill="#0E8C82" opacity=".7"/>
+              <circle cx="200" cy="70" r="3" fill="#0E8C82" opacity=".5"/>
+              <circle cx="230" cy="100" r="3" fill="#0E8C82" opacity=".5"/>
+            </svg>
+          )}
         </div>
         <div class="card-body">
           <h3>{h.title}</h3>
@@ -90,10 +91,16 @@ const { honors, skills } = profileContent[lang];
     box-shadow: 0 18px 40px rgba(0, 0, 0, 0.08);
   }
   .card-art {
-    height: 168px;
+    height: 280px;
     position: relative;
     overflow: hidden;
     background: #f2f4f4;
+  }
+  .card-art img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
   }
   .card-body {
     padding: 24px 26px 28px;
