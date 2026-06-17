@@ -6,12 +6,12 @@ const lang = (Astro.locals?.lang ?? "zh") as Lang;
 const fabText = profileContent[lang].fab;
 ---
 
-<a href="/rag" class="fab">
+<button class="fab rag-trigger" onclick="openRAG()" aria-label={fabText}>
   <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
     <path d="M12 3C7 3 3 6.6 3 11c0 2.4 1.2 4.5 3.2 5.9L5.5 21l4.4-2.2c.7.1 1.4.2 2.1.2 5 0 9-3.6 9-8s-4-8-9-8z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/>
   </svg>
   {fabText}
-</a>
+</button>
 
 <style>
   .fab {
@@ -25,10 +25,14 @@ const fabText = profileContent[lang].fab;
     height: 54px;
     padding: 0 22px 0 18px;
     border-radius: 980px;
+    border: none;
     background: var(--teal);
     color: #fff;
     font-size: 15px;
     font-weight: 500;
+    font-family: inherit;
+    letter-spacing: -0.01em;
+    cursor: pointer;
     box-shadow: 0 10px 30px rgba(14, 140, 130, 0.4);
     transition: 0.25s;
   }

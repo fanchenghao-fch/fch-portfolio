@@ -8,6 +8,7 @@ import ProjectCard from "../components/ProjectCard.astro";
 import HonorsSkills from "../components/HonorsSkills.astro";
 import Footer from "../components/Footer.astro";
 import FAB from "../components/FAB.astro";
+import RAGOverlay from "../components/RAGOverlay.astro";
 import { getProjectsByCompany } from "../data/projects";
 import { profileContent } from "../data/profile";
 import type { Lang } from "../lib/i18n";
@@ -33,7 +34,7 @@ const sortedProjects = getProjectsByCompany(company);
       <p class="hero-sub">{t.hero.subtitle}</p>
       <div class="hero-cta">
         <a href="#projects" class="btn btn-primary">{t.hero.viewWork}</a>
-        <a href="/rag" class="btn btn-ghost">{t.hero.askAvatar}</a>
+        <button class="btn btn-ghost rag-trigger" onclick="openRAG()">{t.hero.askAvatar}</button>
       </div>
     </div>
     <div class="hero-art">
@@ -101,6 +102,9 @@ const sortedProjects = getProjectsByCompany(company);
 
   <!-- FLOATING ACTION BUTTON -->
   <FAB />
+
+  <!-- RAG OVERLAY -->
+  <RAGOverlay />
 </BaseLayout>
 
 <script>
