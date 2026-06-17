@@ -99,7 +99,8 @@ a{color:inherit;text-decoration:none;}
 /* generic card (still used by honor cards) */
 .card{background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;transition:.3s;display:flex;flex-direction:column;}
 .card:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(0,0,0,0.08);}
-.card-art{height:168px;position:relative;overflow:hidden;background:#f2f4f4;}
+.card-art{height:280px;position:relative;overflow:hidden;background:#f2f4f4;}
+.card-art img{width:100%;height:100%;object-fit:cover;display:block;}
 .card-body{padding:24px 26px 28px;}
 .tag{display:inline-block;font-size:12px;font-weight:500;color:var(--teal-deep);background:var(--teal-soft);border-radius:980px;padding:5px 12px;letter-spacing:0.02em;}
 .card h3{font-size:21px;font-weight:600;margin:16px 0 8px;letter-spacing:-0.02em;line-height:1.2;}
@@ -379,14 +380,7 @@ a{color:inherit;text-decoration:none;}
   <div class="honor-card-grid">
     <div class="card reveal">
       <div class="card-art">
-        <!-- 图片占位：未来替换为真实图片 background-image -->
-        <svg viewBox="0 0 400 200" width="100%" height="100%" aria-hidden="true">
-          <rect width="400" height="200" fill="#eef3f2"/>
-          <circle cx="200" cy="100" r="30" fill="none" stroke="#0E8C82" stroke-width="1.4" opacity=".35"/>
-          <circle cx="200" cy="100" r="6" fill="#0E8C82" opacity=".7"/>
-          <circle cx="200" cy="70" r="3" fill="#0E8C82" opacity=".5"/>
-          <circle cx="230" cy="100" r="3" fill="#0E8C82" opacity=".5"/>
-        </svg>
+        <img src="Football.jpg" alt="足球比赛">
       </div>
       <div class="card-body">
         <h3>多次代表同济大学参加 全国 / 上海市 足球比赛</h3>
@@ -396,14 +390,7 @@ a{color:inherit;text-decoration:none;}
 
     <div class="card reveal">
       <div class="card-art">
-        <!-- 图片占位：未来替换为真实图片 background-image -->
-        <svg viewBox="0 0 400 200" width="100%" height="100%" aria-hidden="true">
-          <rect width="400" height="200" fill="#eef3f2"/>
-          <circle cx="200" cy="100" r="30" fill="none" stroke="#0E8C82" stroke-width="1.4" opacity=".35"/>
-          <circle cx="200" cy="100" r="6" fill="#0E8C82" opacity=".7"/>
-          <circle cx="200" cy="70" r="3" fill="#0E8C82" opacity=".5"/>
-          <circle cx="230" cy="100" r="3" fill="#0E8C82" opacity=".5"/>
-        </svg>
+        <img src="Child.jpg" alt="社会实践活动">
       </div>
       <div class="card-body">
         <h3>积极参与社会实践活动</h3>
