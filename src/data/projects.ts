@@ -126,7 +126,7 @@ export const projects: Project[] = [
       {
         title: "GitHub 链接",
         titleEn: "TODO",
-        url: "https://github.com/fengcheng1119/FAN_AI_MONITOR",
+        url: "https://github.com/fanchenghao-fch/FAN_AI_MONITOR",
       },
     ],
     images: [],
