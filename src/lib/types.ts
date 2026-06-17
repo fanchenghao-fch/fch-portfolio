@@ -1,3 +1,14 @@
+// ── Detail section (for projects with custom block structure) ──
+export interface DetailSection {
+  title: string;
+  titleEn: string;
+  text?: string;
+  textEn?: string;
+  items?: string[];
+  itemsEn?: string[];
+  url?: string;
+}
+
 // ── Project (serves both display + RAG corpus) ──
 export interface Project {
   slug: string;
@@ -6,6 +17,8 @@ export interface Project {
   role: string;
   roleEn: string;
   period: string;
+  periodLabel?: string;
+  periodLabelEn?: string;
   tags: string[];
   summary: string;
   summaryEn: string;
@@ -15,6 +28,7 @@ export interface Project {
   detailWorkEn: string[];
   detailOutcome: string;
   detailOutcomeEn: string;
+  detailSections?: DetailSection[];
   images: string[];
   links: { label: string; url: string; labelEn?: string }[];
   sortWeight: number;

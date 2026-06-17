@@ -14,11 +14,11 @@ const lang = (Astro.locals?.lang ?? "zh") as Lang;
 const title = lang === "zh" ? project.title : project.titleEn;
 const role = lang === "zh" ? project.role : project.roleEn;
 const tags = project.tags;
-const overview = lang === "zh" ? project.detailOverview : project.detailOverviewEn;
-const work = lang === "zh" ? project.detailWork : project.detailWorkEn;
-const outcome = lang === "zh" ? project.detailOutcome : project.detailOutcomeEn;
-const links = project.links;
 const backText = lang === "zh" ? "返回作品集" : "Back to Portfolio";
+const periodLabel =
+  lang === "zh"
+    ? (project.periodLabel ?? "时间")
+    : (project.periodLabelEn ?? "Period");
 ---
 
 <BaseLayout title={`${title} · 范诚昊`}>
@@ -56,36 +56,65 @@ const backText = lang === "zh" ? "返回作品集" : "Back to Portfolio";
 
         <div class="meta">
           <div><div class="k">{lang === "zh" ? "我的角色" : "My Role"}</div><div class="v">{role}</div></div>
-          <div><div class="k">{lang === "zh" ? "时间" : "Period"}</div><div class="v">{project.period}</div></div>
+          <div><div class="k">{periodLabel}</div><div class="v">{project.period}</div></div>
         </div>
 
-        <div class="block">
-          <h3>{lang === "zh" ? "项目概述" : "Overview"}</h3>
-          <p>{overview}</p>
-        </div>
-
-        <div class="block">
-          <h3>{lang === "zh" ? "我的工作" : "My Work"}</h3>
-          <ul>
-            {work.map((w) => <li>{w}</li>)}
-          </ul>
-        </div>
-
-        <div class="block">
-          <h3>{lang === "zh" ? "产出成果" : "Outcome"}</h3>
-          <p>{outcome}</p>
-          {
-            project.images.length > 0 && (
-              <div class="gallery">
-                {project.images.map((img) => (
-                  <div class="shot">
-                    <img src={img} alt="" loading="lazy" />
+        {
+          project.detailSections && project.detailSections.length > 0 ? (
+            project.detailSections.map((sec) => (
+              <>
+                {sec.text && (
+                  <div class="block">
+                    <h3>{lang === "zh" ? sec.title : (sec.titleEn || sec.title)}</h3>
+                    <p>{lang === "zh" ? sec.text : (sec.textEn || sec.text)}</p>
                   </div>
-                ))}
+                )}
+                {sec.items && sec.items.length > 0 && (
+                  <div class="block">
+                    <h3>{lang === "zh" ? sec.title : (sec.titleEn || sec.title)}</h3>
+                    <ul>
+                      {(lang === "zh" ? sec.items : (sec.itemsEn || sec.items)).map((item) => <li>{item}</li>)}
+                    </ul>
+                  </div>
+                )}
+                {sec.url && (
+                  <div class="block">
+                    <h3>{lang === "zh" ? sec.title : (sec.titleEn || sec.title)}</h3>
+                    <p><a href={sec.url} style="color:var(--teal);word-break:break-all;">{sec.url}</a></p>
+                  </div>
+                )}
+              </>
+            ))
+          ) : (
+            <>
+              <div class="block">
+                <h3>{lang === "zh" ? "项目概述" : "Overview"}</h3>
+                <p>{lang === "zh" ? project.detailOverview : project.detailOverviewEn}</p>
               </div>
-            )
-          }
-        </div>
+              <div class="block">
+                <h3>{lang === "zh" ? "我的工作" : "My Work"}</h3>
+                <ul>
+                  {(lang === "zh" ? project.detailWork : project.detailWorkEn).map((w) => <li>{w}</li>)}
+                </ul>
+              </div>
+              <div class="block">
+                <h3>{lang === "zh" ? "产出成果" : "Outcome"}</h3>
+                <p>{lang === "zh" ? project.detailOutcome : project.detailOutcomeEn}</p>
+                {
+                  project.images.length > 0 && (
+                    <div class="gallery">
+                      {project.images.map((img) => (
+                        <div class="shot">
+                          <img src={img} alt="" loading="lazy" />
+                        </div>
+                      ))}
+                    </div>
+                  )
+                }
+              </div>
+            </>
+          )
+        }
 
         <div class="links">
           {links.map((link) => (

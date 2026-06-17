@@ -2,37 +2,64 @@ import type { Project } from "@/lib/types";
 
 export const projects: Project[] = [
   {
-    slug: "happiness-model",
-    title: "城市居民生活圈幸福度智能监测与推演模型",
-    titleEn: "Urban Living Circle Happiness Monitoring & Inference Model",
-    role: "数据 + 建模",
-    roleEn: "Data + Modeling",
-    period: "2026.3 – 2026.5",
-    tags: ["AI", "城市", "机器学习"],
+    slug: "ai-learn-miniapp",
+    title: "AI 闯关学习微信小程序-阿拉灯神丁",
+    titleEn: "TODO",
+    role: "独立开发",
+    roleEn: "TODO",
+    period: "30 h",
+    periodLabel: "耗时",
+    periodLabelEn: "TODO",
+    tags: ["AI 产品", "微信小程序"],
     summary:
-      "融合 POI、街景影像与居民文本，用 XGBoost 等模型识别影响因子并推演优化策略。",
-    summaryEn:
-      "Integrates POI, street view imagery, and resident text data with XGBoost to identify impact factors and infer optimization strategies.",
-    detailOverview:
-      "融合 POI、街景影像与居民文本数据，构建生活圈幸福度评价体系；运用空间分析、机器学习与大语言模型，识别影响因子并推演优化策略，支持城市精细化治理。",
-    detailOverviewEn:
-      "Built a living circle happiness evaluation system integrating POI, street view imagery, and resident text data. Applied spatial analysis, machine learning, and LLMs to identify impact factors and infer optimization strategies for urban governance.",
-    detailWork: [
-      "机器学习变量的数据清洗与特征处理",
-      "完成 XGBoost 等模型的训练、调参与结果解释",
-      "结合大语言模型对居民文本做语义层面的影响因子识别",
+      "面向全龄学习人群的 AI 驱动闯关学习小程序，利用大语言模型+联网搜索实现“输入即学”，配合游戏化激励系统提升学习动力。",
+    summaryEn: "TODO",
+    detailOverview: "TODO",
+    detailOverviewEn: "TODO",
+    detailWork: ["TODO"],
+    detailWorkEn: ["TODO"],
+    detailOutcome: "TODO",
+    detailOutcomeEn: "TODO",
+    detailSections: [
+      {
+        title: "项目背景",
+        titleEn: "TODO",
+        text: "一款面向全龄学习人群的 AI 驱动闯关学习小程序。传统刷题 App 依赖预制题库，内容覆盖有限且更新滞后。本项目利用大语言模型 + 联网搜索实现“输入即学”——用户输入任意知识点，AI 实时生成个性化题目并给出学习诊断报告，配合游戏化激励系统提升学习动力。",
+        textEn: "TODO",
+      },
+      {
+        title: "功能介绍",
+        titleEn: "TODO",
+        items: [
+          "AI 智能出题：用户输入任意知识点（如“量子计算”），AI 自动生成选择题/判断题，支持难度选择和题量配置",
+          "联网知识增强：三段式出题流水线（联网搜索 → AI 生成 → 领域校验），弥补大模型训练数据时效缺口，搜索失败静默降级不影响核心流程",
+          "游戏化答题闯关：生命值机制 + 连击系统 + 单题计时，答题后即时反馈 AI 知识点讲解",
+          "AI 学习诊断报告：掌握度雷达图 + 知识要点总结 + 个性化学习建议 + 错题回顾",
+          "用户成长体系：金币/经验/5 级等级 + 每日打卡 + 连续签到天数统计",
+          "错题管理系统：自动收录错题、按领域分组、支持重新作答和标记已掌握",
+        ],
+        itemsEn: ["TODO"],
+      },
+      {
+        title: "技术选型",
+        titleEn: "TODO",
+        items: [
+          "前端：Taro 4.2 + React 18 + TypeScript + Zustand，适配微信小程序原生能力",
+          "后端：FastAPI (Python) + LangChain + SQLAlchemy 2.0 异步 ORM + MySQL 8.0",
+          "AI：DeepSeek V4 Pro（出题与分析）+ DeepSeek V4 Flash（领域校验）+ Tavily Search API（联网知识搜索）",
+          "认证：微信小程序 code2session + JWT 双鉴权模式（强制/可选认证）",
+          "部署：Docker Compose 容器化编排，后端 TDD 测试覆盖 91+ 用例",
+        ],
+        itemsEn: ["TODO"],
+      },
+      {
+        title: "GitHub 链接",
+        titleEn: "TODO",
+        url: "https://github.com/fanchenghao-fch/FAN_AI_LEARN",
+      },
     ],
-    detailWorkEn: [
-      "Data cleaning and feature engineering for ML variables",
-      "Trained, tuned, and interpreted XGBoost and other models",
-      "Used LLMs for semantic-level impact factor identification from resident texts",
-    ],
-    detailOutcome:
-      "一套可解释的幸福度评价与推演模型，可定位影响生活圈幸福度的关键因子，并给出可落地的空间优化方向。",
-    detailOutcomeEn:
-      "An interpretable happiness evaluation and inference model that identifies key factors affecting living circle happiness and provides actionable spatial optimization directions.",
     images: [],
-    links: [{ label: "查看 Demo", url: "#", labelEn: "View Demo" }],
+    links: [],
     sortWeight: 1,
   },
   {

@@ -12,6 +12,8 @@ const projectsJSON = JSON.stringify(
     role: p.role,
     roleEn: p.roleEn,
     period: p.period,
+    periodLabel: p.periodLabel,
+    periodLabelEn: p.periodLabelEn,
     tags: p.tags,
     detailOverview: p.detailOverview,
     detailOverviewEn: p.detailOverviewEn,
@@ -19,6 +21,7 @@ const projectsJSON = JSON.stringify(
     detailWorkEn: p.detailWorkEn,
     detailOutcome: p.detailOutcome,
     detailOutcomeEn: p.detailOutcomeEn,
+    detailSections: p.detailSections,
     images: p.images,
     links: p.links,
   }))
@@ -107,9 +110,7 @@ const t = {
     var isZh = lang === "zh";
     var title = isZh ? p.title : p.titleEn;
     var role = isZh ? p.role : p.roleEn;
-    var overview = isZh ? p.detailOverview : p.detailOverviewEn;
-    var work = isZh ? p.detailWork : p.detailWorkEn;
-    var outcome = isZh ? p.detailOutcome : p.detailOutcomeEn;
+    var periodLabel = (isZh ? (p.periodLabel || t.period) : (p.periodLabelEn || t.period));
 
     var html = "";
 
@@ -123,24 +124,51 @@ const t = {
 
     html += '<div class="proj-meta">';
     html += '<div><div class="proj-meta-k">' + t.myRole + '</div><div class="proj-meta-v">' + role + '</div></div>';
-    html += '<div><div class="proj-meta-k">' + t.period + '</div><div class="proj-meta-v">' + p.period + '</div></div>';
+    html += '<div><div class="proj-meta-k">' + periodLabel + '</div><div class="proj-meta-v">' + p.period + '</div></div>';
     html += '</div>';
 
-    html += '<div class="proj-block"><h3>' + t.overview + '</h3><p>' + overview + '</p></div>';
-
-    html += '<div class="proj-block"><h3>' + t.myWork + '</h3><ul>';
-    work.forEach(function(w) { html += '<li>' + w + '</li>'; });
-    html += '</ul></div>';
-
-    html += '<div class="proj-block"><h3>' + t.outcome + '</h3><p>' + outcome + '</p>';
-    if (p.images && p.images.length > 0) {
-      html += '<div class="proj-gallery">';
-      p.images.forEach(function(img) {
-        html += '<div class="proj-shot"><img src="' + img + '" alt="" loading="lazy"></div>';
+    // Custom detailSections or default three-section layout
+    if (p.detailSections && p.detailSections.length > 0) {
+      p.detailSections.forEach(function(sec) {
+        var secTitle = isZh ? sec.title : (sec.titleEn || sec.title);
+        if (sec.text) {
+          var secText = isZh ? sec.text : (sec.textEn || sec.text);
+          html += '<div class="proj-block"><h3>' + secTitle + '</h3><p>' + secText + '</p></div>';
+        }
+        if (sec.items && sec.items.length > 0) {
+          var secItems = isZh ? sec.items : (sec.itemsEn || sec.items);
+          html += '<div class="proj-block"><h3>' + secTitle + '</h3><ul>';
+          secItems.forEach(function(item) { html += '<li>' + item + '</li>'; });
+          html += '</ul></div>';
+        }
+        if (sec.url) {
+          html += '<div class="proj-block"><h3>' + secTitle + '</h3>';
+          html += '<a href="' + sec.url + '" class="btn btn-primary" target="_blank" rel="noopener">' + sec.url + ' →</a>';
+          html += '</div>';
+        }
       });
+    } else {
+      // Default layout
+      var overview = isZh ? p.detailOverview : p.detailOverviewEn;
+      var work = isZh ? p.detailWork : p.detailWorkEn;
+      var outcome = isZh ? p.detailOutcome : p.detailOutcomeEn;
+
+      html += '<div class="proj-block"><h3>' + t.overview + '</h3><p>' + overview + '</p></div>';
+
+      html += '<div class="proj-block"><h3>' + t.myWork + '</h3><ul>';
+      work.forEach(function(w) { html += '<li>' + w + '</li>'; });
+      html += '</ul></div>';
+
+      html += '<div class="proj-block"><h3>' + t.outcome + '</h3><p>' + outcome + '</p>';
+      if (p.images && p.images.length > 0) {
+        html += '<div class="proj-gallery">';
+        p.images.forEach(function(img) {
+          html += '<div class="proj-shot"><img src="' + img + '" alt="" loading="lazy"></div>';
+        });
+        html += '</div>';
+      }
       html += '</div>';
     }
-    html += '</div>';
 
     if (p.links && p.links.length > 0) {
       html += '<div class="proj-links">';
