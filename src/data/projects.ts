@@ -71,36 +71,66 @@ export const projects: Project[] = [
   },
   {
     slug: "ai-hot-monitor",
-    title: "AI 热点监控 & 定时推送工具",
-    titleEn: "AI Trend Monitor & Scheduled Push Tool",
-    role: "全栈开发",
-    roleEn: "Full-stack Developer",
-    period: "2026.1 – 2026.3",
-    tags: ["AI 产品", "工具"],
+    title: "AI 热点监控工具",
+    titleEn: "TODO",
+    role: "独立开发",
+    roleEn: "TODO",
+    period: "5h",
+    periodLabel: "耗时",
+    periodLabelEn: "TODO",
+    tags: ["AI 工具", "响应式 Web", "Skill"],
     summary:
-      "第一时间抓取全球 AI 动态（如大模型更新），定时向用户推送，响应式 Web + Agent Skills。",
-    summaryEn:
-      "Real-time global AI news monitoring (e.g., LLM updates) with scheduled push notifications. Responsive web app with Agent Skills.",
-    detailOverview:
-      "构建了一套自动化 AI 热点监控系统：定时抓取全球 AI 动态（大模型发布、技术突破、产品更新等），整理关键变化点，通过多种渠道推送给用户。响应式 Web 界面 + Agent Skills 驱动。",
-    detailOverviewEn:
-      "An automated AI trend monitoring system: periodically fetches global AI news (model releases, breakthroughs, product updates), distills key changes, and pushes to users via multiple channels. Driven by responsive web UI + Agent Skills.",
-    detailWork: [
-      "设计并实现多源爬取架构（公众号、Twitter、GitHub、官网）",
-      "搭建 Agent Skills 驱动的智能摘要与分级推送逻辑",
-      "响应式 Web 前端 + 定时任务调度",
+      "AI 驱动热点监控系统：多源采集 + 智能鉴伪分类 + 实时推送，已封装为 Claude Code Skill 实现零依赖运行。",
+    summaryEn: "TODO",
+    detailOverview: "TODO",
+    detailOverviewEn: "TODO",
+    detailWork: ["TODO"],
+    detailWorkEn: ["TODO"],
+    detailOutcome: "TODO",
+    detailOutcomeEn: "TODO",
+    detailSections: [
+      {
+        title: "项目背景",
+        titleEn: "TODO",
+        text: "旨在第一时间获取 AI 领域最新热点（如 GPT-5、Claude、DeepSeek 等大模型更新），利用 AI 自动发现、鉴伪、分类并即时通知用户。解决信息过载与标题党泛滥的痛点，确保用户只看到真正相关的内容。",
+        textEn: "TODO",
+      },
+      {
+        title: "功能介绍",
+        titleEn: "TODO",
+        items: [
+          "关键词智能监控：用户自定义关键词，系统自动从 RSS（8 源）、Reddit（4 子版）、Hacker News、网页搜索等多数据源持续采集最新内容",
+          "AI 三级分类与鉴伪：基于 DeepSeek 大模型实现 S/A/B 三级相关度分类与假消息识别，配合三层代码硬过滤兜底，将误判率从 86% 降至 0%",
+          "实时通知推送：发现真正相关热点后，通过 WebSocket 即时推送至前端，支持 Toast 弹窗与未读红点提醒",
+          "采集日志 AI 自动总结：每次采集完成后由 AI 自动生成趋势总结与逐篇文章摘要，以卡片形式弹出展示",
+          "信息库与日志库：全量话题检索与可视化浏览，支持分页、逐条/批量删除、展开详情等数据管理操作",
+          "Agent Skill 封装：封装为 Claude Code 原生 Skill（v2.0），零外部依赖，Agent 自主完成搜索→分类→分析全流程",
+          "可配置调度：支持 15 分钟至 24 小时共 6 档检查频率，自动采集开关一键切换",
+        ],
+        itemsEn: ["TODO"],
+      },
+      {
+        title: "技术选型",
+        titleEn: "TODO",
+        items: [
+          "后端：Node.js + Express v5 + Socket.IO（WebSocket 实时推送）",
+          "数据库：SQLite（better-sqlite3，WAL 模式，同步 API）",
+          "AI 服务：DeepSeek API（OpenAI SDK 兼容调用，deepseek-chat 模型）",
+          "任务调度：node-cron（每分钟轮询，按关键词频率触发）",
+          "数据采集：rss-parser（RSS/Atom）、axios（Reddit/HN API）、cheerio（网页解析）",
+          "前端：原生 HTML/CSS/JS，零框架，极简设计系统 + 响应式布局",
+          "Agent Skill：Claude Code Skill v2.0，Agent 原生执行搜索·分类·存储，零外部依赖",
+        ],
+        itemsEn: ["TODO"],
+      },
+      {
+        title: "GitHub 链接",
+        titleEn: "TODO",
+        url: "https://github.com/fengcheng1119/FAN_AI_MONITOR",
+      },
     ],
-    detailWorkEn: [
-      "Designed multi-source crawling architecture (WeChat, Twitter, GitHub, official sites)",
-      "Built Agent Skills-driven intelligent summarization and tiered push logic",
-      "Responsive web frontend + scheduled task orchestration",
-    ],
-    detailOutcome:
-      "已稳定运行，日均抓取 50+ 条 AI 动态，智能筛选后推送 5-8 条高质量摘要。",
-    detailOutcomeEn:
-      "Running stably, capturing 50+ AI news items daily, pushing 5-8 high-quality summaries after intelligent filtering.",
     images: [],
-    links: [{ label: "查看 Demo", url: "#", labelEn: "View Demo" }],
+    links: [],
     sortWeight: 2,
   },
   {
