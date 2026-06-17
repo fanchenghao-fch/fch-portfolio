@@ -122,8 +122,10 @@ a {
   color: var(--teal-deep);
   background: var(--teal-soft);
   border-radius: 980px;
-  padding: 5px 12px;
+  padding: 7px 15px;
   letter-spacing: 0.02em;
+  margin-right: 6px;
+  margin-bottom: 6px;
 }
 
 /* ── Chips ── */
@@ -215,10 +217,10 @@ a {
   color: #0A6E66;
   background: #E8F4F2;
   border-radius: 980px;
-  padding: 6px 14px;
+  padding: 7px 15px;
   letter-spacing: 0.02em;
-  margin-right: 8px;
-  margin-bottom: 8px;
+  margin-right: 10px;
+  margin-bottom: 10px;
 }
 
 .proj-title {
