@@ -81,7 +81,7 @@ a{color:inherit;text-decoration:none;}
 .htrack::-webkit-scrollbar-thumb{background:rgba(14,140,130,.35);border-radius:980px;}
 .hcard{scroll-snap-align:start;flex:0 0 clamp(280px,78vw,340px);height:430px;position:relative;display:flex;flex-direction:column;background:var(--white);border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden;cursor:pointer;transition:transform .3s,box-shadow .3s,border-color .3s;}
 .hcard:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(0,0,0,0.08);border-color:rgba(14,140,130,0.4);}
-.hcard-art{flex:1 1 auto;min-height:150px;background:#f2f4f4;position:relative;overflow:hidden;}
+.hcard-art{flex:0 0 200px;background:#f2f4f4;position:relative;overflow:hidden;}
 .hcard-art svg{width:100%;height:100%;transition:transform .55s cubic-bezier(.16,1,.3,1);}
 .hcard:hover .hcard-art svg{transform:scale(1.05);}
 .hcard-art::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 42%,rgba(14,140,130,0.12),transparent 62%);opacity:0;transition:opacity .45s;pointer-events:none;}
@@ -177,6 +177,39 @@ a{color:inherit;text-decoration:none;}
 .rag-disc{font-size:11.5px;color:#a9a9af;text-align:center;margin-top:11px;line-height:1.5;}
 body.rag-open{overflow:hidden;}
 @media(max-width:520px){.rag-panel{max-width:100vw;}}
+/* ── Project detail overlay ── */
+.proj-overlay{position:fixed;inset:0;z-index:90;display:flex;align-items:flex-start;justify-content:center;padding:48px 20px;overflow-y:auto;background:rgba(20,24,26,0.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;pointer-events:none;transition:opacity .35s ease;}
+.proj-overlay.open{opacity:1;pointer-events:auto;}
+.proj-modal{position:relative;width:100%;max-width:780px;background:var(--white);border-radius:26px;overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,0.3);animation:projRise .5s cubic-bezier(.16,1,.3,1);}
+@keyframes projRise{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:none;}}
+.proj-close{position:absolute;top:18px;right:18px;z-index:5;width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,0.85);backdrop-filter:blur(8px);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.2s;}
+.proj-close:hover{background:#fff;transform:scale(1.05);}
+.proj-close svg{width:16px;height:16px;}
+.proj-art{height:240px;background:#eaf2f0;position:relative;display:flex;align-items:center;justify-content:center;}
+.proj-body{padding:38px 44px 44px;}
+.proj-tag{display:inline-block;font-size:12px;font-weight:500;color:var(--teal-deep);background:var(--teal-soft);border-radius:980px;padding:6px 14px;letter-spacing:0.02em;margin-right:8px;margin-bottom:8px;}
+.proj-title{font-size:clamp(26px,4vw,36px);font-weight:600;letter-spacing:-0.03em;line-height:1.12;margin:18px 0 0;color:var(--ink);}
+.proj-meta{display:flex;flex-wrap:wrap;gap:28px;margin-top:24px;padding-bottom:26px;border-bottom:1px solid var(--line);}
+.proj-meta-k{font-size:12px;color:#9a9aa0;letter-spacing:0.06em;text-transform:uppercase;}
+.proj-meta-v{font-size:15px;color:var(--ink);margin-top:6px;font-weight:500;}
+.proj-block{margin-top:32px;}
+.proj-block h3{font-size:13px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--teal-deep);margin-bottom:14px;}
+.proj-block p{font-size:16px;line-height:1.7;color:#333;}
+.proj-block ul{list-style:none;margin-top:6px;}
+.proj-block li{font-size:16px;line-height:1.7;color:#333;padding-left:22px;position:relative;}
+.proj-block li::before{content:"";position:absolute;left:2px;top:11px;width:6px;height:6px;border-radius:50%;background:var(--teal);}
+.proj-gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px;}
+.proj-shot{aspect-ratio:4/3;background:#eef3f2;border-radius:14px;display:flex;align-items:center;justify-content:center;color:#a9b8b5;font-size:12px;border:1px solid var(--line);overflow:hidden;}
+.proj-shot img{width:100%;height:100%;object-fit:cover;}
+.proj-links{display:flex;gap:12px;flex-wrap:wrap;margin-top:34px;}
+.proj-lk{display:inline-flex;align-items:center;gap:8px;height:46px;padding:0 22px;border-radius:980px;font-size:15px;font-weight:500;cursor:pointer;transition:.25s;text-decoration:none;font-family:inherit;}
+.proj-lk-primary{background:var(--teal);color:#fff;border:none;}
+.proj-lk-primary:hover{background:var(--teal-deep);}
+.proj-lk-ghost{border:1px solid var(--line);color:var(--ink);background:transparent;}
+.proj-lk-ghost:hover{background:var(--paper);}
+body.proj-open{overflow:hidden;}
+@media(max-width:640px){.proj-overlay{padding:20px 12px;}.proj-body{padding:30px 24px 34px;}.proj-gallery{grid-template-columns:repeat(2,1fr);}.proj-art{height:180px;}}
+@media(prefers-reduced-motion:reduce){.proj-overlay,.proj-modal{transition:none;animation:none;}}
 </style>
 </head>
 <body>
@@ -309,7 +342,7 @@ body.rag-open{overflow:hidden;}
       横向滑动 / 拖拽，浏览全部 8 个项目
     </div>
     <div class="htrack" id="htrack">
-      <a href="03-project-detail.html" class="hcard">
+      <a href="/project/happiness-model" class="hcard">
         <span class="idx">01</span>
         <div class="hcard-art"><svg viewBox="0 0 400 200" width="100%" height="100%"><rect width="400" height="200" fill="#eef3f2"/><circle cx="120" cy="100" r="5" fill="#0E8C82"/><circle cx="220" cy="70" r="5" fill="#0E8C82"/><circle cx="300" cy="130" r="5" fill="#0E8C82"/><line x1="120" y1="100" x2="220" y2="70" stroke="#0E8C82" stroke-width="1.4" opacity=".5"/><line x1="220" y1="70" x2="300" y2="130" stroke="#0E8C82" stroke-width="1.4" opacity=".5"/></svg></div>
         <div class="hcard-body">
@@ -319,7 +352,7 @@ body.rag-open{overflow:hidden;}
           <span class="more">查看详情 →</span>
         </div>
       </a>
-      <a href="03-project-detail.html" class="hcard">
+      <a href="/project/ai-hot-monitor" class="hcard">
         <span class="idx">02</span>
         <div class="hcard-art"><svg viewBox="0 0 400 200" width="100%" height="100%"><rect width="400" height="200" fill="#eef3f2"/><rect x="150" y="60" width="100" height="80" rx="10" fill="none" stroke="#0E8C82" stroke-width="1.6"/><circle cx="200" cy="40" r="6" fill="#0E8C82"/><line x1="200" y1="46" x2="200" y2="60" stroke="#0E8C82" stroke-width="1.6"/></svg></div>
         <div class="hcard-body">
@@ -329,7 +362,7 @@ body.rag-open{overflow:hidden;}
           <span class="more">查看详情 →</span>
         </div>
       </a>
-      <a href="03-project-detail.html" class="hcard">
+      <a href="/project/workflow-agent" class="hcard">
         <span class="idx">03</span>
         <div class="hcard-art"><svg viewBox="0 0 400 200" width="100%" height="100%"><rect width="400" height="200" fill="#eef3f2"/><rect x="120" y="80" width="40" height="40" rx="6" fill="#0E8C82" opacity=".8"/><rect x="180" y="80" width="40" height="40" rx="6" fill="#0E8C82" opacity=".55"/><rect x="240" y="80" width="40" height="40" rx="6" fill="#0E8C82" opacity=".3"/></svg></div>
         <div class="hcard-body">
@@ -339,7 +372,7 @@ body.rag-open{overflow:hidden;}
           <span class="more">查看详情 →</span>
         </div>
       </a>
-      <a href="03-project-detail.html" class="hcard">
+      <a href="/project/wuwei-commercial" class="hcard">
         <span class="idx">04</span>
         <div class="hcard-art"><svg viewBox="0 0 400 200" width="100%" height="100%"><rect width="400" height="200" fill="#eef3f2"/><path d="M120 140 L160 90 L210 120 L260 70 L300 110" fill="none" stroke="#0E8C82" stroke-width="2"/></svg></div>
         <div class="hcard-body">
@@ -349,7 +382,7 @@ body.rag-open{overflow:hidden;}
           <span class="more">查看详情 →</span>
         </div>
       </a>
-      <a href="03-project-detail.html" class="hcard">
+      <a href="/project/shanghai-rural-industry" class="hcard">
         <span class="idx">05</span>
         <div class="hcard-art"><svg viewBox="0 0 400 200" width="100%" height="100%"><rect width="400" height="200" fill="#eef3f2"/><g fill="none" stroke="#0E8C82" stroke-width="1.4" opacity=".7"><rect x="140" y="70" width="50" height="30"/><rect x="200" y="70" width="60" height="30"/><rect x="140" y="108" width="120" height="30"/></g></svg></div>
         <div class="hcard-body">
@@ -359,7 +392,7 @@ body.rag-open{overflow:hidden;}
           <span class="more">查看详情 →</span>
         </div>
       </a>
-      <a href="03-project-detail.html" class="hcard">
+      <a href="/project/chuansha-rural" class="hcard">
         <span class="idx">06</span>
         <div class="hcard-art"><svg viewBox="0 0 400 200" width="100%" height="100%"><rect width="400" height="200" fill="#eef3f2"/><circle cx="200" cy="100" r="46" fill="none" stroke="#0E8C82" stroke-width="1.6"/><circle cx="200" cy="100" r="6" fill="#0E8C82"/><circle cx="200" cy="54" r="4" fill="#0E8C82"/><circle cx="246" cy="100" r="4" fill="#0E8C82"/></svg></div>
         <div class="hcard-body">
@@ -369,7 +402,7 @@ body.rag-open{overflow:hidden;}
           <span class="more">查看详情 →</span>
         </div>
       </a>
-      <a href="03-project-detail.html" class="hcard">
+      <a href="/project/wupen-design" class="hcard">
         <span class="idx">07</span>
         <div class="hcard-art"><svg viewBox="0 0 400 200" width="100%" height="100%"><rect width="400" height="200" fill="#eef3f2"/><path d="M200 60 L228 96 L200 132 L172 96 Z" fill="none" stroke="#0E8C82" stroke-width="1.8"/><circle cx="200" cy="96" r="5" fill="#0E8C82"/></svg></div>
         <div class="hcard-body">
@@ -379,7 +412,7 @@ body.rag-open{overflow:hidden;}
           <span class="more">查看详情 →</span>
         </div>
       </a>
-      <a href="03-project-detail.html" class="hcard">
+      <a href="/project/wupen-research" class="hcard">
         <span class="idx">08</span>
         <div class="hcard-art"><svg viewBox="0 0 400 200" width="100%" height="100%"><rect width="400" height="200" fill="#eef3f2"/><g stroke="#0E8C82" stroke-width="2" opacity=".75"><line x1="150" y1="130" x2="150" y2="90"/><line x1="180" y1="130" x2="180" y2="70"/><line x1="210" y1="130" x2="210" y2="100"/><line x1="240" y1="130" x2="240" y2="60"/></g></svg></div>
         <div class="hcard-body">
@@ -515,6 +548,24 @@ document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
   tr.addEventListener('scroll',upd);window.addEventListener('resize',upd);upd();
 })();
 </script>
+<!-- ── Project detail overlay ── -->
+<div class="proj-overlay" id="projOverlay" aria-hidden="true">
+  <div class="proj-modal" id="projModal">
+    <button class="proj-close" id="projClose" aria-label="关闭">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#1D1D1F" stroke-width="2"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg>
+    </button>
+    <div class="proj-art">
+      <svg viewBox="0 0 600 240" width="100%" height="100%" preserveAspectRatio="xMidYMid slice">
+        <rect width="600" height="240" fill="#eaf2f0"/>
+        <g stroke="rgba(14,140,130,0.18)" stroke-width="1"><line x1="150" y1="0" x2="150" y2="240"/><line x1="300" y1="0" x2="300" y2="240"/><line x1="450" y1="0" x2="450" y2="240"/><line x1="0" y1="80" x2="600" y2="80"/><line x1="0" y1="160" x2="600" y2="160"/></g>
+        <g><circle cx="150" cy="80" r="7" fill="#0E8C82"/><circle cx="300" cy="160" r="9" fill="#0E8C82"/><circle cx="450" cy="80" r="7" fill="#0E8C82"/><circle cx="300" cy="80" r="5" fill="#0E8C82" opacity=".6"/></g>
+        <g stroke="#0E8C82" stroke-width="1.6" opacity=".55"><line x1="150" y1="80" x2="300" y2="160"/><line x1="300" y1="160" x2="450" y2="80"/><line x1="300" y1="160" x2="300" y2="80"/></g>
+      </svg>
+    </div>
+    <div class="proj-body" id="projBody"></div>
+  </div>
+</div>
+
 <!-- RAG overlay logic -->
 <script>
 const ragDemo={
@@ -555,7 +606,7 @@ function ragAddBot(o){
   var d=document.createElement('div');d.className='rag-msg bot';
   var html='<div class="rag-bubble">'+o.text+'</div>';
   if(o.cite)html+='<span class="rag-cite">▸ '+o.cite+'</span>';
-  if(o.ref)html+='<a href="03-project-detail.html" class="rag-ref"><div class="thumb"></div><div class="info"><div class="rt">'+o.ref.t+'</div><div class="rd">'+o.ref.d+'</div></div><span class="go">›</span></a>';
+  if(o.ref)html+='<a href="/project/happiness-model" class="rag-ref"><div class="thumb"></div><div class="info"><div class="rt">'+o.ref.t+'</div><div class="rd">'+o.ref.d+'</div></div><span class="go">›</span></a>';
   d.innerHTML=html;
   document.getElementById('ragThread').appendChild(d);
   document.getElementById('ragThread').scrollTop=document.getElementById('ragThread').scrollHeight;
@@ -593,6 +644,84 @@ document.getElementById('ragInput').addEventListener('keydown',function(e){
 });
 document.addEventListener('keydown',function(e){
   if(e.key==='Escape'&&document.getElementById('ragOverlay').classList.contains('open')){closeRAG();}
+});
+</script>
+<!-- Project detail overlay logic -->
+<script>
+const PROJ_DATA = [
+  {slug:"happiness-model",title:"城市居民生活圈幸福度智能监测与推演模型",titleEn:"Urban Living Circle Happiness Monitoring & Inference Model",role:"数据 + 建模",roleEn:"Data + Modeling",period:"2026.3 – 2026.5",tags:["AI","城市","机器学习"],detailOverview:"融合 POI、街景影像与居民文本数据，构建生活圈幸福度评价体系；运用空间分析、机器学习与大语言模型，识别影响因子并推演优化策略，支持城市精细化治理。",detailOverviewEn:"Built a living circle happiness evaluation system integrating POI, street view imagery, and resident text data. Applied spatial analysis, machine learning, and LLMs to identify impact factors and infer optimization strategies for urban governance.",detailWork:["机器学习变量的数据清洗与特征处理","完成 XGBoost 等模型的训练、调参与结果解释","结合大语言模型对居民文本做语义层面的影响因子识别"],detailWorkEn:["Data cleaning and feature engineering for ML variables","Trained, tuned, and interpreted XGBoost and other models","Used LLMs for semantic-level impact factor identification from resident texts"],detailOutcome:"一套可解释的幸福度评价与推演模型，可定位影响生活圈幸福度的关键因子，并给出可落地的空间优化方向。",detailOutcomeEn:"An interpretable happiness evaluation and inference model that identifies key factors affecting living circle happiness and provides actionable spatial optimization directions.",images:[],links:[{label:"查看 Demo",url:"#",labelEn:"View Demo"}]},
+  {slug:"ai-hot-monitor",title:"AI 热点监控 & 定时推送工具",titleEn:"AI Trend Monitor & Scheduled Push Tool",role:"全栈开发",roleEn:"Full-stack Developer",period:"2026.1 – 2026.3",tags:["AI 产品","工具"],detailOverview:"构建了一套自动化 AI 热点监控系统：定时抓取全球 AI 动态（大模型发布、技术突破、产品更新等），整理关键变化点，通过多种渠道推送给用户。响应式 Web 界面 + Agent Skills 驱动。",detailOverviewEn:"An automated AI trend monitoring system: periodically fetches global AI news, distills key changes, and pushes to users via multiple channels. Driven by responsive web UI + Agent Skills.",detailWork:["设计并实现多源爬取架构（公众号、Twitter、GitHub、官网）","搭建 Agent Skills 驱动的智能摘要与分级推送逻辑","响应式 Web 前端 + 定时任务调度"],detailWorkEn:["Designed multi-source crawling architecture","Built Agent Skills-driven intelligent summarization and tiered push logic","Responsive web frontend + scheduled task orchestration"],detailOutcome:"已稳定运行，日均抓取 50+ 条 AI 动态，智能筛选后推送 5-8 条高质量摘要。",detailOutcomeEn:"Running stably, capturing 50+ AI news items daily, pushing 5-8 high-quality summaries after intelligent filtering.",images:[],links:[{label:"查看 Demo",url:"#",labelEn:"View Demo"}]},
+  {slug:"workflow-agent",title:"可研 Work Flow & 项目谋划 Agent",titleEn:"Feasibility Study Work Flow & Project Planning Agent",role:"AI 工作流搭建",roleEn:"AI Workflow Builder",period:"2025.9 – 2026.2",tags:["AI 工作流","Agent"],detailOverview:"在同济咨询实习期间，将可研编制（10万+字/份）和项目谋划的复杂流程，沉淀为可复用的 Work Flow 与 Agent。同时编写策划生图指南，帮助团队用 AI 提升产出质量与效率。",detailOverviewEn:"During internship at Tongji Consulting, codified complex feasibility study processes and project planning into reusable Work Flows and Agents. Authored illustrated planning guides to help teams leverage AI for quality and efficiency.",detailWork:["拆解可研编制流程，抽象为模块化 Work Flow","搭建项目谋划 Agent，自动化生成谋划框架与要点","编写策划生图指南，培训团队用 AI 辅助策划"],detailWorkEn:["Deconstructed feasibility study processes into modular Work Flows","Built a Project Planning Agent that auto-generates planning frameworks","Authored illustrated planning guides, trained team on AI-assisted planning"],detailOutcome:"将单份可研编制时间缩短约 40%，项目谋划前期框架可自动生成，团队 AI 工具使用率大幅提升。",detailOutcomeEn:"Reduced per-report feasibility study time by ~40%, auto-generated planning frameworks, significantly improved team AI tool adoption.",images:[],links:[]},
+  {slug:"wuwei-commercial",title:"无为市商业街区业态策划",titleEn:"Wuwei City Commercial District Format Planning",role:"策划 + 数据分析",roleEn:"Planning + Data Analysis",period:"2025.6 – 2025.10",tags:["产业","策划"],detailOverview:"结合国家政策导向、无为市资源禀赋与长三角市场动向，独立完成了 5 万+字的商业街区业态策划报告及汇报 PPT。涵盖业态定位、空间布局、招商策略与运营建议。",detailOverviewEn:"Integrated national policy direction, Wuwei's resource endowments, and Yangtze River Delta market trends to independently complete a 50k+ word commercial district format planning report and presentation.",detailWork:["多源数据收集与分析（政策、市场、竞品）","业态定位与空间布局方案设计","独立撰写 5 万+字策划报告及汇报 PPT"],detailWorkEn:["Multi-source data collection and analysis","Format positioning and spatial layout design","Independently authored 50k+ word planning report and presentation"],detailOutcome:"报告已交付甲方，业态方案被部分采纳进入后续深化阶段。",detailOutcomeEn:"Report delivered to client; format proposals partially adopted for further development.",images:[],links:[]},
+  {slug:"shanghai-rural-industry",title:"大都市乡村新产业新业态研究（上海）",titleEn:"New Rural Industries and Formats in Metropolitan Areas (Shanghai)",role:"数据 + 制图",roleEn:"Data + Mapping",period:"2024.9 – 2025.6",tags:["城市","数据"],detailOverview:"参与上海市大都市乡村新产业新业态研究课题，负责多源数据的清洗与标准化、空间落位与分析制图，最终产出项目类型图谱研究报告，为上海乡村产业政策提供数据支撑。",detailOverviewEn:"Participated in Shanghai metropolitan rural new industries research, responsible for multi-source data cleaning, spatial mapping, and analysis visualization. Produced a project typology atlas report supporting Shanghai rural industry policy.",detailWork:["多源数据清洗与标准化处理","ArcGIS 空间分析与专题制图","项目类型图谱设计与研究报告撰写"],detailWorkEn:["Multi-source data cleaning and standardization","ArcGIS spatial analysis and thematic mapping","Project typology atlas design and research report writing"],detailOutcome:"研究成果被纳入上海市相关乡村产业规划参考材料。",detailOutcomeEn:"Research findings incorporated into Shanghai rural industry planning reference materials.",images:[],links:[]},
+  {slug:"chuansha-rural",title:"川沙 1+1+5 乡村振兴连片研究",titleEn:"Chuansha 1+1+5 Rural Revitalization Cluster Study",role:"实地调研 + 分析",roleEn:"Field Research + Analysis",period:"2024.6 – 2024.10",tags:["城市","规划"],detailOverview:"参与川沙 1+1+5 乡村振兴连片研究，实地走访新浜村及周边区域，梳理资源底板（产业、空间、人文），评估连片发展潜力，提出乡村振兴策略与空间优化建议。",detailOverviewEn:"Participated in Chuansha rural revitalization cluster study. Conducted field visits to Xinbang Village, mapped resource foundations, assessed cluster development potential, and proposed strategies.",detailWork:["实地走访调研，收集一手数据","梳理新浜村资源底板（产业/空间/人文）","评估连片发展潜力并提出策略建议"],detailWorkEn:["Field visits and primary data collection","Mapped Xinbang Village resource foundations","Assessed cluster development potential and proposed strategies"],detailOutcome:"研究成果为川沙乡村振兴连片规划和实施提供决策参考。",detailOutcomeEn:"Research provided decision-making reference for Chuansha rural revitalization cluster planning and implementation.",images:[],links:[]},
+  {slug:"wupen-design",title:"WUPENiCity 城市设计国际竞赛 · 二等奖（一作）",titleEn:"WUPENiCity Urban Design International Competition · 2nd Prize",role:"第一作者 · 主创设计",roleEn:"First Author · Lead Designer",period:"2024",tags:["竞赛","城市设计"],detailOverview:'在 WUPENiCity 2024 城市设计国际竞赛中，以"缘"为核心概念，从宏观城市肌理到微观社区空间，链接川沙的空间、产业与社会，描绘未来创新家园蓝图。从 1000+ 队伍中脱颖而出，获二等奖。',detailOverviewEn:'In WUPENiCity 2024 Urban Design International Competition, centered on "Yuan" (connections) as core concept, linked Chuansha\'s spatial, industrial, and social dimensions from macro to micro scale. Won 2nd prize among 1000+ teams.',detailWork:["核心概念提出与方案整体把控","空间分析与城市设计方案","图纸表达与方案汇报"],detailWorkEn:["Core concept development and overall scheme direction","Spatial analysis and urban design","Drawing production and presentation"],detailOutcome:"国际竞赛二等奖（一作），从 1000+ 队伍中脱颖而出。",detailOutcomeEn:"2nd prize among 1000+ teams in international competition.",images:[],links:[]},
+  {slug:"wupen-research",title:"WUPENiCity 调研报告国际竞赛 · 三等奖",titleEn:"WUPENiCity Urban Sustainable Survey Report International Competition · 3rd Prize",role:"调研 + 分析",roleEn:"Research + Analysis",period:"2024",tags:["竞赛","调研"],detailOverview:'在 WUPENiCity 2024 城市可持续调研报告国际竞赛中，聚焦"就业难"背景下的青年住房困境问题，通过多维度调研与数据分析，揭示困境形成机制并提出针对性优化策略。获三等奖。',detailOverviewEn:"In WUPENiCity 2024 Urban Sustainable Survey Report International Competition, focused on youth housing challenges amid employment difficulties. Through multi-dimensional research and data analysis, revealed formation mechanisms and proposed targeted strategies. Won 3rd prize.",detailWork:["调研方案设计与问卷发放","数据分析与困境形成机制梳理","优化策略提出与报告撰写"],detailWorkEn:["Survey design and questionnaire distribution","Data analysis and mechanism mapping","Strategy proposals and report writing"],detailOutcome:"国际竞赛三等奖，调研成果被竞赛组委会收录展示。",detailOutcomeEn:"3rd prize; research findings archived and showcased by competition committee.",images:[],links:[]}
+];
+
+const projOverlay=document.getElementById('projOverlay');
+const projBody=document.getElementById('projBody');
+let projCurrentSlug=null;
+
+function projRender(slug){
+  var p=PROJ_DATA.find(function(x){return x.slug===slug;});
+  if(!p)return;
+  var h='';
+  if(p.tags.length){h+='<div>';p.tags.forEach(function(t){h+='<span class="proj-tag">'+t+'</span>';});h+='</div>';}
+  h+='<h1 class="proj-title">'+p.title+'</h1>';
+  h+='<div class="proj-meta"><div><div class="proj-meta-k">我的角色</div><div class="proj-meta-v">'+p.role+'</div></div><div><div class="proj-meta-k">时间</div><div class="proj-meta-v">'+p.period+'</div></div></div>';
+  h+='<div class="proj-block"><h3>项目概述</h3><p>'+p.detailOverview+'</p></div>';
+  h+='<div class="proj-block"><h3>我的工作</h3><ul>';
+  p.detailWork.forEach(function(w){h+='<li>'+w+'</li>';});
+  h+='</ul></div>';
+  h+='<div class="proj-block"><h3>产出成果</h3><p>'+p.detailOutcome+'</p>';
+  if(p.images&&p.images.length){h+='<div class="proj-gallery">';p.images.forEach(function(i){h+='<div class="proj-shot"><img src="'+i+'" alt="" loading="lazy"></div>';});h+='</div>';}
+  h+='</div>';
+  h+='<div class="proj-links">';
+  if(p.links&&p.links.length){p.links.forEach(function(lk){h+='<a href="'+lk.url+'" class="proj-lk proj-lk-primary" target="_blank" rel="noopener">'+lk.label+' →</a>';});}
+  h+='<button class="proj-lk proj-lk-ghost" onclick="projClose()">返回作品集</button>';
+  h+='</div>';
+  projBody.innerHTML=h;projBody.scrollTop=0;projCurrentSlug=slug;
+}
+
+function projOpen(slug){
+  if(projOverlay.classList.contains('open')&&projCurrentSlug===slug)return;
+  projRender(slug);projOverlay.classList.add('open');document.body.classList.add('proj-open');
+  projOverlay.setAttribute('aria-hidden','false');
+  history.pushState({projectOverlay:slug},'','/project/'+slug);
+}
+
+function projClose(){
+  projOverlay.classList.remove('open');document.body.classList.remove('proj-open');
+  projOverlay.setAttribute('aria-hidden','true');projCurrentSlug=null;
+  history.replaceState(null,'','/home#projects');
+}
+
+document.getElementById('projClose').addEventListener('click',projClose);
+projOverlay.addEventListener('click',function(e){if(e.target===projOverlay)projClose();});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'&&projOverlay.classList.contains('open'))projClose();
+});
+
+// Browser back/forward
+window.addEventListener('popstate',function(e){
+  var s=e.state;
+  if(s&&s.projectOverlay){
+    projRender(s.projectOverlay);projOverlay.classList.add('open');
+    document.body.classList.add('proj-open');projOverlay.setAttribute('aria-hidden','false');
+    projCurrentSlug=s.projectOverlay;
+  }else if(projOverlay.classList.contains('open')){
+    projOverlay.classList.remove('open');document.body.classList.remove('proj-open');
+    projOverlay.setAttribute('aria-hidden','true');projCurrentSlug=null;
+  }
+});
+
+// Intercept card clicks
+document.addEventListener('click',function(e){
+  var card=e.target.closest('.hcard');if(!card)return;
+  var href=card.getAttribute('href');if(!href)return;
+  var m=href.match(/\/project\/([^/?#]+)/);if(!m)return;
+  e.preventDefault();projOpen(m[1]);
 });
 </script>
 </body>
