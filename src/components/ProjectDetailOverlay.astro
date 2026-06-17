@@ -247,12 +247,16 @@ const t = {
     videoPlayer.play();
   }
 
+  window.openVideoOverlay = openVideoOverlay;
+
   function closeVideoOverlay() {
     videoPlayer.pause();
     videoOverlay.classList.remove("open");
     videoOverlay.setAttribute("aria-hidden", "true");
     document.body.classList.remove("video-open");
   }
+
+  window.closeVideoOverlay = closeVideoOverlay;
 
   videoCloseBtn.addEventListener("click", closeVideoOverlay);
 
