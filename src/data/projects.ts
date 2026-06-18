@@ -131,9 +131,9 @@ export const projects: Project[] = [
       {
         title: "视频演示",
         titleEn: "TODO",
-        video: "/videos/AI 热点监测工具演示.mp4",
-        videoWidth: 502,
-        videoHeight: 480,
+        video: "/videos/AI 热点监测工具演示1080.mp4",
+        videoWidth: 1128,
+        videoHeight: 1080,
       },
     ],
     images: [],
