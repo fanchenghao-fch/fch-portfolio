@@ -141,35 +141,64 @@ export const projects: Project[] = [
     sortWeight: 2,
   },
   {
-    slug: "workflow-agent",
-    title: "可研 Work Flow & 项目谋划 Agent",
-    titleEn: "Feasibility Study Work Flow & Project Planning Agent",
-    role: "AI 工作流搭建",
-    roleEn: "AI Workflow Builder",
-    period: "2025.9 – 2026.2",
-    tags: ["AI 工作流", "Agent"],
+    slug: "rural-industry-atlas",
+    title: "大都市乡村新产业新业态项目类型图谱构建",
+    titleEn: "TODO",
+    role: "独立完成",
+    roleEn: "TODO",
+    period: "2025.8 – 2025.12",
+    tags: ["地理空间信息数据分析", "类型学研究"],
     summary:
-      "把可研编制与项目谋划流程沉淀成可复用的工作流与 Agent，并编写策划生图指南。",
-    summaryEn:
-      "Codified feasibility study and project planning workflows into reusable agents, with illustrated planning guides.",
-    detailOverview:
-      "在同济咨询实习期间，将可研编制（10万+字/份）和项目谋划的复杂流程，沉淀为可复用的 Work Flow 与 Agent。同时编写策划生图指南，帮助团队用 AI 提升产出质量与效率。",
-    detailOverviewEn:
-      "During internship at Tongji Consulting, codified complex feasibility study processes (100k+ words each) and project planning into reusable Work Flows and Agents. Authored illustrated planning guides to help teams leverage AI for quality and efficiency.",
-    detailWork: [
-      "拆解可研编制流程，抽象为模块化 Work Flow",
-      "搭建项目谋划 Agent，自动化生成谋划框架与要点",
-      "编写策划生图指南，培训团队用 AI 辅助策划",
+      `对上海 149 个乡村振兴示范村内 470 个新产业新业态项目进行全量统计与深度追踪，构建 7 大类 22 小类分类体系与三维适配模型，形成可复制的超大城市乡村产业振兴"上海方案"。`,
+    summaryEn: "TODO",
+    detailOverview: "TODO",
+    detailOverviewEn: "TODO",
+    detailWork: ["TODO"],
+    detailWorkEn: ["TODO"],
+    detailOutcome: "TODO",
+    detailOutcomeEn: "TODO",
+    detailSections: [
+      {
+        title: "项目背景",
+        titleEn: "TODO",
+        text: `本项目为导师工作室承担的上海市课题研究子课题，于 2025 年 8 月至 12 月间完成。研究立足上海建设国际大都市乡村振兴先行示范区的战略高度，对全市 1-6 批共 149 个乡村振兴示范村内的 470 个典型新产业新业态项目进行了全量统计与深度追踪。研究聚焦于"新产业"（商务办公、文化展览、商业贸易等城市核心功能向乡村流动的项目）与"新业态"（传统农业基础上融合体验、教育、展销等服务业）两类对象，综合产业经济活动特点与行业管理要求，构建了涵盖 7 大类 22 小类的项目分类体系：乡居办公、文化创意、民宿酒店、餐饮服务、购物商贸、体育休闲、现代农业。核心成果为"大都市乡村新产业新业态项目类型图谱"——一套基于"资源禀赋—空间区位—市场需求"三维适配模型的适宜性评价与空间引导工具。图谱通过对各类业态核心特征的精准识别与空间选址画像的系统梳理，为政府部门制定差异化土地与产业政策提供科学底座，为市场主体规避选址风险提供决策依据，最终形成可复制、可推广的超大城市乡村产业振兴"上海方案"。`,
+        textEn: "TODO",
+      },
+      {
+        title: "研究方法体系",
+        titleEn: "TODO",
+        text: `采用"文献分析 + 案例借鉴 + 政策梳理 + 调查访谈"四位一体方法。调研以"面上普查 + 典型研究"两个层次展开，覆盖 59 个乡镇（工业区）、149 个示范村、122 个社会主体，兼顾 9 个涉农区共 4 类区位类型，选取 35 个重点调研村进行深度解析。`,
+        textEn: "TODO",
+      },
+      {
+        title: "空间数据库构建",
+        titleEn: "TODO",
+        text: "全面采集上海乡村地区新产业新业态项目的精确空间点位、规模体量、行业类型、投资运营、增收带动等核心数据，同步整合交通可达性等关键区位要素，通过统一的空间数据标准和属性关联结构，形成可动态反映项目空间分布特征与演变规律的数据库系统。",
+        textEn: "TODO",
+      },
+      {
+        title: "GIS 空间分析",
+        titleEn: "TODO",
+        items: [
+          "核密度分析与缓冲区分析：从宏观（三大圈层分异）、中观（城镇开发边界依附、交通可达性）、微观（镇域统筹集群化）三个尺度解析项目空间分布规律",
+          "关键发现一：约 70% 项目集聚于距城镇开发边界 1.5 公里圈层内，表明新产业新业态项目具有显著的城镇依附特征",
+          "关键发现二：约 80% 项目通过存量用地盘活实现落地，闲置农房、旧厂房、废弃校舍等存量资产是项目空间载体的主要来源",
+        ],
+        itemsEn: ["TODO"],
+      },
+      {
+        title: "三维适配模型",
+        titleEn: "TODO",
+        text: `构建"资源适配性（生态资源丰度 + 存量资产特征）× 区位适配性（核心辐射圈 R<15min / 城镇依附圈 D<1.5km / 远郊生态圈 >1hr）× 市场与政策适配性（用地政策约束 + 投资运营门槛）"的适宜性评价体系，将上海乡村划分为城镇紧密型、生态资源型、农业生产型三种空间基底，匹配差异化的主导业态指引。`,
+        textEn: "TODO",
+      },
+      {
+        title: "七类业态全谱系图谱",
+        titleEn: "TODO",
+        text: `针对乡居办公、文化创意、民宿酒店、餐饮服务、购物商贸、体育休闲、现代农业七大类业态，逐一完成特征识别（业态属性 + 用地特征）、空间选址画像（适宜基底 + 区位偏好）、准入与管控指引（正面引导 + 负面管控 + 核心指标），形成"负面清单底线管控 + 正面清单分类引导"的动态指引体系。`,
+        textEn: "TODO",
+      },
     ],
-    detailWorkEn: [
-      "Deconstructed feasibility study processes into modular Work Flows",
-      "Built a Project Planning Agent that auto-generates planning frameworks",
-      "Authored illustrated planning guides, trained team on AI-assisted planning",
-    ],
-    detailOutcome:
-      "将单份可研编制时间缩短约 40%，项目谋划前期框架可自动生成，团队 AI 工具使用率大幅提升。",
-    detailOutcomeEn:
-      "Reduced per-report feasibility study time by ~40%, auto-generated planning frameworks, significantly improved team AI tool adoption.",
     images: [],
     links: [],
     sortWeight: 3,
