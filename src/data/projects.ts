@@ -128,6 +128,13 @@ export const projects: Project[] = [
         titleEn: "TODO",
         url: "https://github.com/fanchenghao-fch/FAN_AI_MONITOR",
       },
+      {
+        title: "视频演示",
+        titleEn: "TODO",
+        video: "/videos/AI 热点监测工具演示.mp4",
+        videoWidth: 502,
+        videoHeight: 480,
+      },
     ],
     images: [],
     links: [],
