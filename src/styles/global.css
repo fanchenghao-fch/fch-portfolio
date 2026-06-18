@@ -466,6 +466,8 @@ a {
 body.lightbox-open { overflow: hidden; }
 
 @media (max-width: 640px) {
+  .proj-body { padding: 30px 24px 40px; }
+  .proj-gallery { grid-template-columns: repeat(2, 1fr); }
   .gallery-card {
     flex: 0 0 280px;
   }
@@ -480,11 +482,6 @@ body.lightbox-open { overflow: hidden; }
     max-width: 95vw;
     max-height: 70vh;
   }
-}
-
-@media (max-width: 640px) {
-  .proj-body { padding: 30px 24px 40px; }
-  .proj-gallery { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* ── Responsive helpers ── */
