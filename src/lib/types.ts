@@ -1,3 +1,10 @@
+// ── Gallery image (for horizontal scroll gallery in project detail) ──
+export interface GalleryImage {
+  src: string;
+  caption: string;
+  captionEn?: string;
+}
+
 // ── Detail section (for projects with custom block structure) ──
 export interface DetailSection {
   title: string;
@@ -10,6 +17,7 @@ export interface DetailSection {
   video?: string;
   videoWidth?: number;
   videoHeight?: number;
+  gallery?: GalleryImage[];
 }
 
 // ── Project (serves both display + RAG corpus) ──

@@ -95,6 +95,13 @@ const t = {
   </div>
 </div>
 
+<!-- image lightbox overlay (z-index above proj-overlay) -->
+<div class="gallery-lightbox" id="galleryLightbox" aria-hidden="true">
+  <button class="lightbox-close" id="lightboxClose" aria-label="关闭">&times;</button>
+  <img id="lightboxImg" src="" alt="">
+  <div class="lightbox-cap" id="lightboxCap"></div>
+</div>
+
 <pre id="proj-data" style="display:none;">{projectsJSON}</pre>
 <script is:inline>
   var PROJ_DATA = JSON.parse(document.getElementById("proj-data").textContent);
@@ -157,6 +164,27 @@ const t = {
         if (sec.video) {
           html += '<div class="proj-block"><h3>' + secTitle + '</h3>';
           html += '<button class="btn btn-primary btn-video" data-video="' + sec.video + '" data-vw="' + (sec.videoWidth || 0) + '" data-vh="' + (sec.videoHeight || 0) + '">▶ 播放视频</button>';
+          html += '</div>';
+        }
+        if (sec.gallery && sec.gallery.length > 0) {
+          html += '<div class="proj-block"><h3>' + secTitle + '</h3>';
+          html += '<div class="proj-gallery-wrap">';
+          html += '<button class="gallery-nav gallery-prev" onclick="galleryScroll(this, -1)" aria-label="上一个">';
+          html += '<svg viewBox="0 0 24 24" fill="none" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 6 9 12 15 18"/></svg>';
+          html += '</button>';
+          html += '<div class="proj-gallery-h">';
+          sec.gallery.forEach(function(img, i) {
+            var cap = isZh ? img.caption : (img.captionEn || img.caption);
+            html += '<div class="gallery-card" onclick="openLightbox(\'' + img.src + '\',\'' + cap.replace(/'/g, "\\'") + '\')">';
+            html += '<div class="gallery-img"><img src="' + img.src + '" alt="' + cap + '" loading="lazy"></div>';
+            html += '<div class="gallery-cap">' + cap + '</div>';
+            html += '</div>';
+          });
+          html += '</div>';
+          html += '<button class="gallery-nav gallery-next" onclick="galleryScroll(this, 1)" aria-label="下一个">';
+          html += '<svg viewBox="0 0 24 24" fill="none" stroke="#1D1D1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg>';
+          html += '</button>';
+          html += '</div>';
           html += '</div>';
         }
       });
@@ -318,6 +346,51 @@ const t = {
     var vw = parseInt(btn.dataset.vw) || 0;
     var vh = parseInt(btn.dataset.vh) || 0;
     openVideoOverlay(src, vw, vh);
+  });
+
+  // ── Gallery horizontal scroll ──
+  window.galleryScroll = function(btn, direction) {
+    var wrap = btn.closest(".proj-gallery-wrap");
+    if (!wrap) return;
+    var track = wrap.querySelector(".proj-gallery-h");
+    if (!track) return;
+    var card = track.querySelector(".gallery-card");
+    var step = card ? card.offsetWidth + 16 : 340;
+    track.scrollBy({ left: direction * step, behavior: "smooth" });
+  };
+
+  // ── Image lightbox ──
+  var lightbox = document.getElementById("galleryLightbox");
+  var lightboxImg = document.getElementById("lightboxImg");
+  var lightboxCap = document.getElementById("lightboxCap");
+  var lightboxCloseBtn = document.getElementById("lightboxClose");
+
+  window.openLightbox = function(src, caption) {
+    lightboxImg.src = src;
+    lightboxCap.textContent = caption || "";
+    lightbox.classList.add("open");
+    lightbox.setAttribute("aria-hidden", "false");
+    document.body.classList.add("lightbox-open");
+  };
+
+  function closeLightbox() {
+    lightbox.classList.remove("open");
+    lightbox.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("lightbox-open");
+  }
+
+  window.closeLightbox = closeLightbox;
+
+  lightboxCloseBtn.addEventListener("click", closeLightbox);
+
+  lightbox.addEventListener("click", function(e) {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape" && lightbox.classList.contains("open")) {
+      closeLightbox();
+    }
   });
 </script>
 
