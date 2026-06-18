@@ -142,14 +142,14 @@ export const projects: Project[] = [
   },
   {
     slug: "rural-industry-atlas",
-    title: "大都市乡村新业态类型图谱构建",
+    title: "上海乡村新产业新业态类型图谱构建",
     titleEn: "TODO",
     role: "独立完成",
     roleEn: "TODO",
     period: "2025.8 – 2025.12",
     tags: ["地理空间信息数据分析", "类型学研究"],
     summary:
-      `对上海149个乡村振兴示范村内470个新产业新业态项目进行全量统计与深度追踪，构建7大类22小类分类体系与三维适配模型。`,
+      `对上海 149 个乡村振兴示范村内 470 个新产业新业态项目进行全量统计与深度追踪，构建 7 大类 22 小类分类体系与三维适配模型。`,
     summaryEn: "TODO",
     detailOverview: "TODO",
     detailOverviewEn: "TODO",
